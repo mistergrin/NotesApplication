@@ -4,7 +4,7 @@ class UsersDB{
      private static $file = __DIR__ . '/../storage/users.json';
 
     public static function allUsers() {
-        if (empty(self::$file)) {
+        if (!empty(self::$file)) {
             $users = [];
             $data = json_decode(file_get_contents(self::$file), true);
             foreach ($data as $dat) {

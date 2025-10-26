@@ -22,29 +22,22 @@ if (!isset($_SESSION['user_id'])) {
 
 <h1> <?php echo "Welcome, " . $_SESSION['nickname']; ?> </h1>
 
-<article>
-    <form action="/src/users.php" method="post">
-        <label for="nickname">nickname:</label><br>
-        <input type="text" id="nickname" name="nickname"><br>
-        <input type="hidden" name="_method" value="DELETE">
-        <input type="submit" value="Delete">
-    </form>
-</article>
+Now you can create a note <a href="src/note_create.php">right here </a>
 
+<form action="/src/note_create.php" method="post" enctype="multipart/form-data">
+    <fieldset>
+        <legend>Create a note</legend>
+        <label for="text">text:</label><br>
+        <input type="text" id="text" name="text"><br>
+        <label for="image">image:</label><br>
+        <input type="file" id="image" name="image"><br>
+        <?php if(isset($errors['image'])): ?>
+            <p style="color:red"><?= $errors['image'] ?></p>
+        <?php endif; ?>
+        <input type="submit" name="submit">
+    </fieldset>
+</form>
 
-<article>
-    <form action="/src/users.php" method="post">
-        <label for="nickname">nickname:</label><br>
-        <input type="text" id="nickname" name="nickname"><br>
-        <label for="firstname">firstname:</label><br>
-        <input type="text" id="firstname" name="firstname"><br>
-        <label for="lastname">lastname:</label><br>
-        <input type="text" id="lastname" name="lastname"><br>
-        <label for="password">password:</label><br>
-        <input type="text" id="password" name="password"><br>
-        <input type="submit" value="Submit">
-    </form>
-</article>
 
 
 <footer>
