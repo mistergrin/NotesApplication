@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id'])) {
-    header("Location: /src/login.php");
+    header("Location: /views/loginview.php");
     exit;
 }
 ?>
@@ -22,7 +22,9 @@ if (!isset($_SESSION['user_id'])) {
 
 <h1> <?php echo "Welcome, " . $_SESSION['nickname']; ?> </h1>
 
-Now you can create a note <a href="src/note_create.php">right here </a>
+Now you can create a note <a href="views/notes_form.php">right here </a>
+
+<br>You can logout <a href="views/logout_view.php"> here </a>
 
 <form action="/src/note_create.php" method="post" enctype="multipart/form-data">
     <fieldset>
