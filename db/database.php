@@ -3,10 +3,10 @@ require_once __DIR__ . "/../src/user.php";
 class UsersDB{
      private static $file = __DIR__ . '/../storage/users.json';
 
-    public static function allUsers() {
+    public function allUsers() {
         if (!empty(self::$file)) {
             $users = [];
-            $data = json_decode(file_get_contents(self::$file), true);
+            $data = json_decode(file_get_contents(self::$file), true) ?: [];
             foreach ($data as $dat) {
                 $users[] = new User($dat['id'], $dat['nickname'], $dat['firstname'], $dat['lastname'], $dat['password']);
             }
@@ -17,7 +17,7 @@ class UsersDB{
     }
     }
 
-    public static function addUser(User $user){
+    public function addUser(User $user){
         $users = self::allUsers();
         if (count($users) > 0) {
             $all_id = array_map(function ($id) {
@@ -31,10 +31,10 @@ class UsersDB{
         $data = array_map(function ($usr) {
             return $usr->createArray();
         }, $users);
-        file_put_contents(self::$file, json_encode($data));
+        file_put_contents(self::$file, json_encode($data, JSON_PRETTY_PRINT));
     }
 
-    public static function getUserByNickname($username){
+    public function getUserByNickname($username){
         $users = self::allUsers();
         foreach ($users as $user){
             if ($user -> getNickname() == $username){
@@ -44,7 +44,7 @@ class UsersDB{
         return null;
     }
 
-    public static function getUserByID($id){
+    public function getUserByID($id){
         $users = self::allUsers();
         foreach ($users as $user){
             if ($user -> getID() == $id){
@@ -55,7 +55,7 @@ class UsersDB{
     }
 
 
-    public static function deleteUser($username){
+    public function deleteUser($username){
         $users = self::allUsers();
         foreach ($users as $user){
             if ($user -> getNickname() == $username){

@@ -2,11 +2,11 @@
 
 class Note{
 
-    public $id;
-    public $author;
-    public $text;
-    public $image;
-    public $date;
+    private $id;
+    private $author;
+    private $text;
+    private $image;
+    private $date;
 
     public function __construct($id, $author, $text, $image, $date){
         $this->id = $id;
@@ -25,8 +25,34 @@ class Note{
             'date' => $this->date
         ];
     }
+
+    public static function create($postData, $fileData, $author){
+        $imageLink = null;
+        $text = trim($postData['text']);
+
+        if (!empty($fileData['image']['tmp_name'])) {
+            $uploadDir = __DIR__ . "/../storage/uploads/";
+            $ext = strtolower(pathinfo($fileData['image']['name'], PATHINFO_EXTENSION));
+            $fileName = uniqid("image_") . "." . $ext;
+            $filePath = $uploadDir . $fileName;
+
+            if (move_uploaded_file($fileData['image']['tmp_name'], $filePath)) {
+                $imageLink = "/storage/uploads/" . $fileName;
+            }
+        }
+
+        $date = date("Y-m-d H:i");
+
+        return new self(null, $author, $text, $imageLink, $date);
+    }
+
+
     public function getNoteId(){
         return $this->id;
+    }
+
+    public function setNoteId($id){
+        $this->id = $id;
     }
 
     public function getNoteAuthor(){

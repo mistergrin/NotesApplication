@@ -13,20 +13,21 @@ if (!isset($_SESSION['user_id'])) {
 <head>
     <meta charset="utf-8">
     <title>page</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 <header>
-    <h1>Page</h1>
+    <h1>NotesApplication</h1>
 </header>
 
 <h1> <?php echo "Welcome, " . $_SESSION['nickname']; ?> </h1>
 
-Now you can create a note <a href="views/notes_form.php">right here </a>
+Now you can create a note <a href="../views/notes_form.php">right here </a>
 
-<br>You can logout <a href="views/logout_view.php"> here </a>
+<br>You can logout <a href="../views/logout_view.php"> here </a>
 
-<form action="/src/note_create.php" method="post" enctype="multipart/form-data">
+<form action="/views/notes_form.php" method="post" enctype="multipart/form-data">
     <fieldset>
         <legend>Create a note</legend>
         <label for="text">text:</label><br>

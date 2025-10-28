@@ -9,20 +9,19 @@ function validation_registration($data)
     $first_name = trim($data['first_name']);
     $last_name = trim($data['last_name']);
     $password = trim($data['password']);
+    $usersDB = new UsersDB();
 
     if (empty($nickname)){
         $errors['nickname'] = "Nickname cannot be empty";
     }
     else{
 
-        $users = UsersDB::allUsers();
-        foreach ($users as $user){
-            if ($nickname == $user->getNickname()){
+        $user_nickname = $usersDB->getUserByNickname($nickname);
+        if ($user_nickname !== null){
                 $errors['nickname'] = "This nickname already exists";
-                break;
             }
         }
-    }
+
 
     if (empty($first_name)){
         $errors['first_name'] = "First name cannot be empty";

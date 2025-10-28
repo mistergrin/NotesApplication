@@ -3,7 +3,7 @@
 function notes_validation($data){
 
     $errors = [];
-    $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+    $allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
 
     $text = trim($data['text']);
     $image = $_FILES['image']['name'];
