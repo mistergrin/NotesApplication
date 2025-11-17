@@ -23,33 +23,58 @@ class NotesDB{
             $all_id = array_map(function ($id) {
                 return $id->getNoteId();
             }, $notes);
-            $note->id = max($all_id) + 1;
+            $note->setNoteId(max($all_id) + 1);
         } else {
-            $note->id = 1;
+            $note->setNoteId(1);
         }
         $notes[] = $note;
         $data = array_map(function ($note) {
             return $note->createArrayNote();
         }, $notes);
-        file_put_contents(self::$file, json_encode($data));
+        file_put_contents(self::$file, json_encode($data, JSON_PRETTY_PRINT));
     }
-    public static function getNote($id)
+    public static function getNoteById($id)
     {
         $notes = self::allNotes();
         foreach($notes as $note){
-            if ($note->id == $id){
+            if ($note->getNoteId() == $id){
                 return $note;
             }
         }
         return null;
     }
+
+    public static function getNotesByAuthor($author){
+
+        $notes = self::allNotes();
+        $found_notes = [];
+
+        foreach($notes as $note){
+            if ($note->getNoteAuthor() == $author){
+                $found_notes[] = $note;
+
+            }
+        }
+        return $found_notes;
+    }
+
+
     public static function deleteNote($id){
         $notes = self::allNotes();
         foreach($notes as $note){
-            if ($note->id == $id){
+            if ($note->getNoteId() == $id){
                 unset($note);
             }
         }
         return null;
     }
+    public static function delete_note_image($id){
+        $note = self::getNoteById($id);
+        $image_link =  __DIR__ . '/../' . ltrim($note->getNoteImage(), '/');
+        if (file_exists($image_link)){
+            unlink($image_link);
+        }
+        return null;
+    }
 }
+

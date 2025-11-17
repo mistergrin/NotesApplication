@@ -2,13 +2,11 @@
 
 require_once __DIR__ . "/../../db/database.php";
 
-function validation_registration($data)
-{
+function update_user_validate($postData){
     $errors = [];
-    $nickname = trim($data['nickname']);
-    $first_name = trim($data['first_name']);
-    $last_name = trim($data['last_name']);
-    $password = trim($data['password']);
+    $nickname = trim($postData['nickname']);
+    $first_name = trim($postData['first_name']);
+    $last_name = trim($postData['last_name']);
     $usersDB = new UsersDB();
 
     if (empty($nickname)){
@@ -16,12 +14,11 @@ function validation_registration($data)
     }
     else{
 
-        $user_nickname = $usersDB->getUserByNickname($nickname);
-        if ($user_nickname !== null){
-                $errors['nickname'] = "This nickname already exists";
-            }
+        $user = $usersDB->getUserByNickname($nickname);
+        if ($user != null and $user->getID() != $_SESSION['user_id']){
+            $errors['nickname'] = "This nickname already exists";
         }
-
+    }
 
     if (empty($first_name)){
         $errors['first_name'] = "First name cannot be empty";
@@ -38,15 +35,6 @@ function validation_registration($data)
     else{
         if (!preg_match("/^[a-zA-Z ]*$/",$last_name)){
             $errors['last_name'] = "Last name can only contain letters and white spaces";
-        }
-    }
-
-    if (empty($password)){
-        $errors['password'] = "Password cannot be empty";
-    }
-    else{
-        if(strlen($password) < 5){
-            $errors['password'] = "Password cannot be less than 5 characters";
         }
     }
 

@@ -4,11 +4,11 @@
 class User
 {
 
-    public $id;
-    public $nickname;
-    public $firstName;
-    public $lastName;
-    public $password;
+    private $id;
+    private $nickname;
+    private $firstName;
+    private $lastName;
+    private $password;
 
     public function __construct($id, $nickname, $firstName, $lastName, $password)
     {
@@ -27,6 +27,19 @@ class User
             'lastname' => $this->lastName,
             'password' => $this->password];
     }
+
+    public function create($postData)
+    {
+        $nickname = $postData['nickname'];
+        $firstName = $postData['first_name'];
+        $lastName = $postData['last_name'];
+        $password = $postData['password'];
+
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        return new self(null ,$nickname, $firstName, $lastName, $hashed_password);
+
+    }
+
     public function getID()
     {
         return $this->id;
@@ -50,4 +63,17 @@ class User
         return $this->password;
     }
 
+    public function setUserId($id){
+        $this->id = $id;
+    }
+    public function setNickName($nickname){
+        $this->nickname = $nickname;
+    }
+
+    public function setFirstName($firstName){
+        $this->firstName = $firstName;
+    }
+    public function setLastName($lastName){
+        $this->lastName = $lastName;
+    }
 }
