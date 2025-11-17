@@ -4,13 +4,16 @@ require_once __DIR__. "/../../db/database.php";
 require_once __DIR__. "/../validations/login_validation.php";
 require_once __DIR__. "/../validations/registr_validation.php";
 require_once __DIR__. "/../user.php";
+require_once __DIR__. "/../validations/updating_user_validation.php";
 
 class UserController{
 
     private UsersDB $usersDB;
+    private User $user;
 
     public function __construct(){
         $this->usersDB = new UsersDB();
+        $this->user = new User(null, null, null, null, null);
     }
 
     public function get_user_by_id($user_id){
@@ -39,10 +42,9 @@ class UserController{
         if (!empty($errors)) {
             return $errors;
         }
-        $user = User::create($postData);
-        $this->usersDB->addUser($user);
-        header("Location: /index.php");
-        exit;
+
+        $this->usersDB->addUser($this->user->create($postData));
+        return [];
     }
 
     public function login_user($postData){
@@ -56,15 +58,15 @@ class UserController{
                 if (password_verify($postData['password'], $found_user->getPassword())){
                     $_SESSION['user_id'] = $found_user->getID();
                     $_SESSION['nickname'] = $found_user->getNickname();
-                    header("Location: /public/index.php");
-                    exit;
+                    $_SESSION['first_name'] = $found_user->getFirstname();
+                    $_SESSION['last_name'] = $found_user->getLastname();
                 }
                 else {
-                    $errors_login['invalid_password'] = 'Wrong password';
+                    $errors_login['password'] = 'Wrong password';
                 }
             }
             else {
-                $errors_login['invalid_user'] = 'User not found';
+                $errors_login['nickname'] = 'User not found';
             }
             $errors = array_merge($errors, $errors_login);
         }
@@ -81,6 +83,29 @@ class UserController{
 
     }
 
+    public function edit_user($postData){
+        $user = $this->usersDB->getUserByID($_SESSION['user_id']);
+        $errors = update_user_validate($postData);
+        if (empty($errors)){
+
+            $user->setNickName(trim($postData['nickname']));
+            $user->setFirstName(trim($postData['first_name']));
+            $user->setLastName(trim($postData['last_name']));
+
+            $this->usersDB->updateUser($user);
+
+            $_SESSION['nickname'] = $user->getNickname();
+            $_SESSION['first_name'] = $user->getFirstname();
+            $_SESSION['last_name'] = $user->getLastname();
+
+        }
+        else {
+            return $errors;
+        }
+
+        return [];
+
+    }
     public function delete_user($user_id){
 
         $user_id = intval($user_id);

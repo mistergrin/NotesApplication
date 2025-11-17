@@ -28,7 +28,7 @@ class User
             'password' => $this->password];
     }
 
-    public static function create($postData)
+    public function create($postData)
     {
         $nickname = $postData['nickname'];
         $firstName = $postData['first_name'];
@@ -63,4 +63,17 @@ class User
         return $this->password;
     }
 
+    public function setUserId($id){
+        $this->id = $id;
+    }
+    public function setNickName($nickname){
+        $this->nickname = $nickname;
+    }
+
+    public function setFirstName($firstName){
+        $this->firstName = $firstName;
+    }
+    public function setLastName($lastName){
+        $this->lastName = $lastName;
+    }
 }

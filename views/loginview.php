@@ -1,19 +1,5 @@
 <?php
 session_start();
-
-require_once __DIR__ . "/../src/controllers/userController.php";
-
-$request_method = $_SERVER["REQUEST_METHOD"];
-$user_controller = new UserController();
-
-
-if ($request_method == "POST" && isset($_POST['submit'])) {
-    $errors = $user_controller->login_user($_POST);
-}
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -21,24 +7,27 @@ if ($request_method == "POST" && isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" href="/public/style.css">
 </head>
 <body>
 <h1>Login</h1>
 
-<?php
-if (!empty($errors)) {
-    foreach ($errors as $field => $error) {
-        echo "<p style='color:red;'>$error</p>";
-    }
-}
-?>
 
-<form method="POST">
-    <input type="text" name="nickname" placeholder="Username" required><br>
-    <input type="password" name="password" placeholder="Password" required><br>
+<form method="post">
+    <div class="row">
+        <label for="nickname"> Nickname: </label>
+        <input type="text" id="nickname" name="nickname" placeholder="Nickname" required><br>
+        <span class="error-message"></span>
+    </div>
+    <div class="row">
+        <label for="password"> Password: </label>
+        <input type="password" id="password" name="password" placeholder="Password" required><br>
+        <span class="error-message"></span>
+    </div>
     <button type="submit" name="submit">Login</button>
 </form>
 
-<p>Don't have an account? <a href="registrationMVC.php">Register here</a></p>
+<script src="/public/login.js"></script>
+<p>Don't have an account? <a href="registration.php">Register here</a></p>
 </body>
 </html>
