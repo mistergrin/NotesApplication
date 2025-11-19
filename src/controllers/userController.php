@@ -52,7 +52,7 @@ class UserController{
         $errors_login = [];
 
         if (empty($errors)){
-            $found_user = $this->usersDB->getUserByNickname($postData['nickname']);
+            $found_user = $this->usersDB->getUserByNickname(trim($postData['nickname']));
 
             if (!empty($found_user)){
                 if (password_verify($postData['password'], $found_user->getPassword())){

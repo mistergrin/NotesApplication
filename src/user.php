@@ -30,9 +30,9 @@ class User
 
     public function create($postData)
     {
-        $nickname = $postData['nickname'];
-        $firstName = $postData['first_name'];
-        $lastName = $postData['last_name'];
+        $nickname = trim($postData['nickname']);
+        $firstName = trim($postData['first_name']);
+        $lastName = trim($postData['last_name']);
         $password = $postData['password'];
 
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
