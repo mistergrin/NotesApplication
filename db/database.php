@@ -8,13 +8,11 @@ class UsersDB{
             $users = [];
             $data = json_decode(file_get_contents(self::$file), true) ?: [];
             foreach ($data as $dat) {
-                $users[] = new User($dat['id'], $dat['nickname'], $dat['firstname'], $dat['lastname'], $dat['password']);
+                $users[] = new User($dat['id'], $dat['nickname'], $dat['firstname'], $dat['lastname'], $dat['password'], $dat['role']);
             }
             return $users;
         }
-    else {
         return [];
-    }
     }
 
     public function addUser(User $user){
@@ -54,7 +52,7 @@ class UsersDB{
         return null;
     }
 
-    public function updateUser(User $updated_user)
+    public function updateUser($updated_user)
     {
         $users = self::allUsers();
         foreach ($users as $index => $user){
@@ -84,6 +82,22 @@ class UsersDB{
             return $usr->createArray();
         }, $users);
 
+        file_put_contents(self::$file, json_encode($data, JSON_PRETTY_PRINT));
+    }
+
+    public function upgradeUserRole($id){
+        $users = self::allUsers();
+
+        foreach ($users as $index => $user){
+            if ($user->getID() == $id){
+                $user->setRole("ADMIN");
+                $users[$index] = $user;
+                break;
+            }
+        }
+        $data = array_map(function($user){
+            return $user->createArray();
+        }, $users);
         file_put_contents(self::$file, json_encode($data, JSON_PRETTY_PRINT));
     }
 }

@@ -9,14 +9,16 @@ class User
     private $firstName;
     private $lastName;
     private $password;
+    private $role;
 
-    public function __construct($id, $nickname, $firstName, $lastName, $password)
+    public function __construct($id, $nickname, $firstName, $lastName, $password, $role)
     {
         $this->id = $id;
         $this->nickname = $nickname;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->password = $password;
+        $this->role = $role;
     }
 
     public function createArray(){
@@ -25,7 +27,8 @@ class User
             'nickname' => $this->nickname,
             'firstname' => $this->firstName,
             'lastname' => $this->lastName,
-            'password' => $this->password];
+            'password' => $this->password,
+            'role' => $this->role];
     }
 
     public function create($postData)
@@ -34,9 +37,10 @@ class User
         $firstName = trim($postData['first_name']);
         $lastName = trim($postData['last_name']);
         $password = $postData['password'];
+        $role = "USER";
 
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        return new self(null ,$nickname, $firstName, $lastName, $hashed_password);
+        return new self(null ,$nickname, $firstName, $lastName, $hashed_password, $role);
 
     }
 
@@ -63,6 +67,10 @@ class User
         return $this->password;
     }
 
+    public function getRole(){
+        return $this->role;
+    }
+
     public function setUserId($id){
         $this->id = $id;
     }
@@ -75,5 +83,8 @@ class User
     }
     public function setLastName($lastName){
         $this->lastName = $lastName;
+    }
+    public function setRole($role){
+        $this->role = $role;
     }
 }

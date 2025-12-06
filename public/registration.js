@@ -67,7 +67,7 @@ form.addEventListener('submit', function (e){
     const formData = new FormData(form);
     formData.append('action', 'register');
 
-    fetch('/public/api/api.php',
+    fetch('/public/api/api_post.php',
         {
             method: "POST",
             body: formData

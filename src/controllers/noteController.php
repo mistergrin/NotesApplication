@@ -2,13 +2,16 @@
 
 require_once __DIR__ .'/../../db/notesDB.php';
 require_once __DIR__ .'/../validations/note_validation.php';
+require_once __DIR__ .'/../note.php';
 
 class NoteController{
 
     private NotesDB $notesDB;
+    private Note $note;
 
     public function __construct(){
         $this->notesDB = new NotesDB();
+        $this->note = new Note(null, null, null, null, null);
     }
 
     public function get_all_notes(){
@@ -31,20 +34,16 @@ class NoteController{
 
     }
 
-    public function create_note($postData){
-        $errors = notes_validation($postData);
+    public function create_note($postData, $fileData){
+        $errors = notes_validation($postData, $fileData);
+        $author = $_SESSION['nickname'];
 
-        if (empty($errors)){
-
-            $note = Note::create($postData, $_FILES, $_SESSION['nickname']);
-            $this->notesDB->addNote($note);
-            header("Location: /index.php");
-            exit;
-        }
-        else {
+        if (!empty($errors)) {
             return $errors;
         }
 
+        $this->notesDB->addNote($this->note->create($postData, $fileData, $author));
+        return [];
     }
 
     public function delete_note($id){
@@ -54,5 +53,25 @@ class NoteController{
         return null;
 
     }
+
+    public function update_note($postData){
+        $note = $this->notesDB->getNoteById($postData['id']);
+        $errors = notes_validation($postData);
+
+        if (empty($errors)){
+
+            $note->setNoteText($postData['note_text']);
+            $note->setNoteImage($postData['note_image']);
+            $note->setNoteDate(date('Y-m-d H:i'));
+
+            $this->notesDB->updateNote($note);
+
+            return [];
+        }
+        else{
+            return $errors;
+        }
+    }
+
 }
 

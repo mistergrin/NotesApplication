@@ -16,7 +16,7 @@ session_start();
 <form method="post">
     <div class="row">
         <label for="nickname"> Nickname: </label>
-        <input type="text" id="nickname" name="nickname" placeholder="Nickname" required><br>
+        <input type="text" id="nickname" name="nickname" placeholder="Nickname" value="<?= isset($_POST['nickname']) ? htmlspecialchars($_POST['nickname']) : '' ?>" required><br>
         <span class="error-message"></span>
     </div>
     <div class="row">

@@ -28,13 +28,14 @@ if (!isset($_SESSION['user_id'])) {
     </div>
 </header>
 
-<main>
+
     <section class="profile-section">
         <h2>Your Profile</h2>
         <div class="profile-info">
-            <p><strong>Nickname:</strong> <span id="newNickName"><?php echo htmlspecialchars($_SESSION['nickname']); ?></span></p>
-            <p><strong>First Name:</strong> <span id="newFirstName"><?php echo htmlspecialchars($_SESSION['first_name']); ?></span></p>
-            <p><strong>Last Name:</strong> <span id="newLastName"><?php echo htmlspecialchars($_SESSION['last_name']); ?></span></p>
+            <p><strong>Nickname:</strong> <span id="newNickName"><?= htmlspecialchars($_SESSION['nickname']); ?></span></p>
+            <p><strong>First Name:</strong> <span id="newFirstName"><?= htmlspecialchars($_SESSION['first_name']); ?></span></p>
+            <p><strong>Last Name:</strong> <span id="newLastName"><?= htmlspecialchars($_SESSION['last_name']); ?></span></p>
+            <p><strong>Role:</strong> <span id="role"><?= htmlspecialchars($_SESSION['role']); ?></span></p>
             <button id="editBtn">Edit Profile</button>
         </div>
         <div id="profileFormContainer" class="hidden">
@@ -42,19 +43,19 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="row">
                     <label for="nickname">Nickname:</label>
                     <input type="text" id="nickname" name="nickname" value="<?= htmlspecialchars($_SESSION['nickname']) ?>" required>
-                    <span class="error-message"</span>
+                    <span class="error-message"></span>
                 </div>
 
                 <div class="row">
                     <label for="first_name">First Name:</label>
                     <input type="text" id="first_name" name="first_name" value="<?= htmlspecialchars($_SESSION['first_name']) ?>" required>
-                    <span class="error-message"</span>
+                    <span class="error-message"></span>
                 </div>
 
                 <div class="row">
                     <label for="last_name">Last Name:</label>
                     <input type="text" id="last_name" name="last_name" value="<?= htmlspecialchars($_SESSION['last_name']) ?>" required>
-                    <span class="error-message"</span>
+                    <span class="error-message"></span>
                 </div>
                 <button type="submit" name="save">Save Changes</button>
                 <button type="button" id="cancelButton">Cancel</button>
@@ -65,7 +66,6 @@ if (!isset($_SESSION['user_id'])) {
     </section>
 
 
-</main>
 <script src="/public/editUser.js"></script>
 </body>
 </html>

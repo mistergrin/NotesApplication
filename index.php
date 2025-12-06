@@ -19,6 +19,9 @@ if (!isset($_SESSION['user_id'])) {
     <div class="header-container">
         <h1 class="app-title">NotesApplication</h1>
         <nav class="nav-buttons">
+            <?php if ($_SESSION['role'] == "ADMIN"): ?>
+            <a href="/views/all_users.php" class="nav-btn">Admin Panel</a>
+            <?php endif; ?>
             <a href="about.php" class="nav-btn">About Application</a>
             <a href="/views/profile.php" class="nav-btn">Your Profile</a>
             <a href="how_to.php" class="nav-btn">How to Create a Note</a>
@@ -33,11 +36,22 @@ if (!isset($_SESSION['user_id'])) {
         <p>You can logout <a href="views/logout_view.php">here</a>.</p>
     </section>
 
+
+    <section class="notes-container"></section>
+    <div class="modal-background" id="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="modal-close">&times;</span>
+            <div class="modal-text"></div>
+            <div class="modal-image"></div>
+            <div class="modal-date"></div>
+        </div>
+    </div>
+
 </main>
 
 <footer>
     <p>Good bye!</p>
 </footer>
-
+<script src="/public/main.js"></script>
 </body>
 </html>

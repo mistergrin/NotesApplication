@@ -13,7 +13,7 @@ class UserController{
 
     public function __construct(){
         $this->usersDB = new UsersDB();
-        $this->user = new User(null, null, null, null, null);
+        $this->user = new User(null, null, null, null, null, null);
     }
 
     public function get_user_by_id($user_id){
@@ -60,6 +60,7 @@ class UserController{
                     $_SESSION['nickname'] = $found_user->getNickname();
                     $_SESSION['first_name'] = $found_user->getFirstname();
                     $_SESSION['last_name'] = $found_user->getLastname();
+                    $_SESSION['role'] = $found_user->getRole();
                 }
                 else {
                     $errors_login['password'] = 'Wrong password';
@@ -107,9 +108,30 @@ class UserController{
 
     }
     public function delete_user($user_id){
-
         $user_id = intval($user_id);
+        $user = $this->usersDB->getUserByID($user_id);
+        $errors = [];
+
+        if ($user->getRole() == "ADMIN"){
+            $errors[] = "You can't delete an admin user";
+            return $errors;
+        }
+
         $this->usersDB->deleteUser($user_id);
-        return null;
+        return [];
+    }
+
+    public function upgrade_user_role($user_id){
+        $user_id = intval($user_id);
+        $user = $this->usersDB->getUserByID($user_id);
+        $errors = [];
+
+        if ($user->GetRole() == "ADMIN"){
+            $errors[] = "You can't upgrade an admin user";
+            return $errors;
+        }
+
+        $this->usersDB->upgradeUserRole($user_id);
+        return [];
     }
 }

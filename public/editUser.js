@@ -64,7 +64,7 @@ form.addEventListener('submit', function (e){
     const formData = new FormData(form);
     formData.append('action', 'edit');
 
-    fetch('/public/api/api.php', {
+    fetch('/public/api/api_post.php', {
         method: "POST",
         body: formData,
     })
@@ -73,7 +73,6 @@ form.addEventListener('submit', function (e){
 
             const inputs = document.querySelectorAll('input');
             inputs.forEach((input) => set_Error(input));
-            const successMessage = form.querySelector('.success-message');
 
             if (data.success){
                 profileFormContainer.classList.add('hidden');

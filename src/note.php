@@ -41,7 +41,7 @@ class Note{
             }
         }
 
-        $date = date("Y-m-d H:i");
+        $date = date("d-m-Y H:i ");
 
         return new self(null, $author, $text, $imageLink, $date);
     }
@@ -69,5 +69,17 @@ class Note{
 
     public function getNoteDate(){
         return $this->date;
+    }
+
+    public function setNoteText($text){
+        return $this->text = $text;
+    }
+
+    public function setNoteImage($image){
+        return $this->image = $image;
+    }
+
+    public function setNoteDate($date){
+        return $this->date = $date;
     }
 }

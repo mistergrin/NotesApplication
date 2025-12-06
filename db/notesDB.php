@@ -4,7 +4,7 @@ require_once __DIR__.'/../src/note.php';
 class NotesDB{
     private static $file = __DIR__."/../storage/notes.json";
 
-    public static function allNotes(){
+    public function allNotes(){
         if (!empty(self::$file)){
             $notes = [];
             $data = json_decode(file_get_contents(self::$file), true);
@@ -17,7 +17,7 @@ class NotesDB{
             return [];
         }
     }
-    public static function addNote(Note $note){
+    public function addNote(Note $note){
         $notes = self::allNotes();
         if (count($notes) > 0) {
             $all_id = array_map(function ($id) {
@@ -33,7 +33,7 @@ class NotesDB{
         }, $notes);
         file_put_contents(self::$file, json_encode($data, JSON_PRETTY_PRINT));
     }
-    public static function getNoteById($id)
+    public function getNoteById($id)
     {
         $notes = self::allNotes();
         foreach($notes as $note){
@@ -44,7 +44,7 @@ class NotesDB{
         return null;
     }
 
-    public static function getNotesByAuthor($author){
+    public function getNotesByAuthor($author){
 
         $notes = self::allNotes();
         $found_notes = [];
@@ -59,22 +59,42 @@ class NotesDB{
     }
 
 
-    public static function deleteNote($id){
+    public function deleteNote($id){
         $notes = self::allNotes();
-        foreach($notes as $note){
+        foreach($notes as $index=> $note){
             if ($note->getNoteId() == $id){
-                unset($note);
+                unset($notes[$index]);
+                break;
             }
         }
-        return null;
+        $data = array_map(function($note) {
+            return $note->createArray();
+        }, $notes);
+
+        file_put_contents(self::$file, json_encode($data, JSON_PRETTY_PRINT));
+
     }
-    public static function delete_note_image($id){
+    public function deleteNoteImage($id){
         $note = self::getNoteById($id);
         $image_link =  __DIR__ . '/../' . ltrim($note->getNoteImage(), '/');
         if (file_exists($image_link)){
             unlink($image_link);
         }
         return null;
+    }
+
+    public function updateNote($updated_note){
+        $notes = self::allNotes();
+        foreach ($notes as $index=> $note){
+            if ($note->getNoteId() == $updated_note->getNoteId()){
+                $notes[$index] = $updated_note;
+                break;
+            }
+        }
+        $data = array_map(function($note) {
+            return $note->createArray();
+        }, $notes);
+        file_put_contents(self::$file, json_encode($data, JSON_PRETTY_PRINT));
     }
 }
 
