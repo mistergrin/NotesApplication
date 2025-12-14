@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__.'/../src/note.php';
 
 class NotesDB{
@@ -9,7 +10,7 @@ class NotesDB{
             $notes = [];
             $data = json_decode(file_get_contents(self::$file), true);
             foreach($data as $note){
-                $notes[] = new Note($note['id'], $note['author'], $note['text'], $note['image'], $note['date']);
+                $notes[] = new Note($note['id'], $note['author'], $note['text'], $note['image'], $note['date'], $note['updated_at'] ?? null);
             }
             return $notes;
         }
@@ -44,10 +45,13 @@ class NotesDB{
         return null;
     }
 
-    public function getNotesByAuthor($author){
+    public function getNotesByAuthor($author, $page, $limit){
 
         $notes = self::allNotes();
         $found_notes = [];
+
+        $page = intval($page);
+        $limit = intval($limit);
 
         foreach($notes as $note){
             if ($note->getNoteAuthor() == $author){
@@ -55,7 +59,27 @@ class NotesDB{
 
             }
         }
-        return $found_notes;
+        usort($found_notes, function($a, $b){
+            if ($a->getNoteUpdatedDate() !== null) {
+                $dateA = $a->getNoteUpdatedDate();
+            } else {
+                $dateA = $a->getNoteDate();
+            }
+
+            if ($b->getNoteUpdatedDate() !== null) {
+                $dateB = $b->getNoteUpdatedDate();
+            } else {
+                $dateB = $b->getNoteDate();
+            }
+
+            return strtotime($dateB) - strtotime($dateA);
+        });
+
+        $start = ($page - 1) * $limit;
+        $paginated_notes = array_slice($found_notes, $start, $limit);
+        $total = count($found_notes);
+
+        return  ['notes' => $paginated_notes, 'total' => $total, 'page' => $page, 'pages' => ceil($total / $limit)];
     }
 
 
@@ -68,7 +92,7 @@ class NotesDB{
             }
         }
         $data = array_map(function($note) {
-            return $note->createArray();
+            return $note->createArrayNote();
         }, $notes);
 
         file_put_contents(self::$file, json_encode($data, JSON_PRETTY_PRINT));
@@ -76,9 +100,13 @@ class NotesDB{
     }
     public function deleteNoteImage($id){
         $note = self::getNoteById($id);
-        $image_link =  __DIR__ . '/../' . ltrim($note->getNoteImage(), '/');
-        if (file_exists($image_link)){
-            unlink($image_link);
+        $imagePath = $note->getNoteImage();
+
+        if ($imagePath) {
+            $image_link = __DIR__ . '/../' . ltrim($note->getNoteImage(), '/');
+            if (file_exists($image_link)) {
+                unlink($image_link);
+            }
         }
         return null;
     }
@@ -92,7 +120,7 @@ class NotesDB{
             }
         }
         $data = array_map(function($note) {
-            return $note->createArray();
+            return $note->createArrayNote();
         }, $notes);
         file_put_contents(self::$file, json_encode($data, JSON_PRETTY_PRINT));
     }

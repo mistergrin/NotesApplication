@@ -8,10 +8,10 @@ function login_validation($data) {
     $password = $data["password"];
 
     if (empty($nickname)) {
-        $errors['empty_nickname'] = "Enter a nickname";
+        $errors['nickname'] = "Enter a nickname";
     }
     if (empty($password)) {
-        $errors['empty_password'] = "Enter a password";
+        $errors['password'] = "Enter a password";
     }
 
     return $errors;

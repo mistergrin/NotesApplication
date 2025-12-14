@@ -28,6 +28,6 @@ session_start();
 </form>
 
 <script src="/public/login.js"></script>
-<p>Don't have an account? <a href="registration.php">Register here</a></p>
+<p class="center-text">Don't have an account? <a href="registration.php">Register here</a></p>
 </body>
 </html>

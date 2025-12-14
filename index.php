@@ -22,9 +22,9 @@ if (!isset($_SESSION['user_id'])) {
             <?php if ($_SESSION['role'] == "ADMIN"): ?>
             <a href="/views/all_users.php" class="nav-btn">Admin Panel</a>
             <?php endif; ?>
-            <a href="about.php" class="nav-btn">About Application</a>
+            <a href="views/notes_form.php" class="nav-btn">Create a note</a>
+            <a href="views/logout_view.php" class="nav-btn">Logout</a>
             <a href="/views/profile.php" class="nav-btn">Your Profile</a>
-            <a href="how_to.php" class="nav-btn">How to Create a Note</a>
         </nav>
     </div>
 </header>
@@ -32,8 +32,6 @@ if (!isset($_SESSION['user_id'])) {
 <main>
     <section class="welcome">
         <h1>Welcome, <?= htmlspecialchars($_SESSION['nickname']) ?>!</h1>
-        <p>Now you can create a note <a href="views/notes_form.php">right here</a>.</p>
-        <p>You can logout <a href="views/logout_view.php">here</a>.</p>
     </section>
 
 
@@ -44,14 +42,35 @@ if (!isset($_SESSION['user_id'])) {
             <div class="modal-text"></div>
             <div class="modal-image"></div>
             <div class="modal-date"></div>
+
+            <div class="modal-actions">
+                <button class="modal-edit">Edit</button>
+                <button class="modal-delete">Delete</button>
+            </div>
+            <div class="hidden" id="modal-edit-block">
+                <form method="post" class="modal-edit-form">
+
+                    <div class="row">
+                        <label for="text">Edit text:</label>
+                        <textarea id="text" class="modal-edit-text" name="text"></textarea>
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="row">
+                        <label for="image">Change image (optional):</label>
+                        <input id="image" type="file" class="modal-edit-image" name="image">
+                        <span class="error-message"></span>
+                    </div>
+
+                    <button type="submit" class="modal-save">Save changes</button>
+                </form>
+            </div>
         </div>
     </div>
-
+    <div class="pagination-wrapper">
+        <div class="pagination"></div>
+    </div>
 </main>
-
-<footer>
-    <p>Good bye!</p>
-</footer>
 <script src="/public/main.js"></script>
 </body>
 </html>

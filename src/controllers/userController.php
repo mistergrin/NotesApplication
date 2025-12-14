@@ -30,9 +30,9 @@ class UserController{
 
     }
 
-    public function get_all_users(){
+    public function get_all_users($page = 1, $limit = 5){
 
-        return $this->usersDB->allUsers();
+        return $this->usersDB->get_all_users_paginated($page, $limit);
 
     }
 
@@ -76,8 +76,9 @@ class UserController{
 
     public function logout_user(){
 
-        unset($_SESSION['user_id']);
-        unset($_SESSION['nickname']);
+        $_SESSION = [];
+        setcookie('PHPSESSID', '', time() - 1, '/', '', true, true);
+
         session_destroy();
         header("Location: /views/loginview.php");
         exit;

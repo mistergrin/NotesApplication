@@ -17,7 +17,7 @@ function notes_validation($data, $fileData){
     if (!empty($image)) {
         $file_type = mime_content_type($_FILES['image']['tmp_name']);
         if (!in_array($file_type, $allowed_types)) {
-            $errors["image"] = "Invalid image format";
+            $errors["image"] = "Invalid file type. Allowed types: JPEG, PNG, GIF, JPG ";
         }
     }
     return $errors;

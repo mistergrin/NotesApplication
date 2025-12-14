@@ -2,6 +2,7 @@ const form = document.querySelector('.form');
 const firstNameInput = document.querySelector('#first_name');
 const lastNameInput = document.querySelector('#last_name');
 const passwordInput = document.querySelector('#password');
+const passwordConfirmInput = document.querySelector('#password_confirm');
 
 function validate_first_last_name(text){
     if (!(text.trim() === "")){
@@ -34,7 +35,9 @@ function set_Error(inputNode, message=''){
     }
 }
 
-
+function validate_password_confirm(password1, password2){
+    return password1 === password2;
+}
 
 firstNameInput.addEventListener('blur', function (){
     if (!validate_first_last_name(firstNameInput.value)){
@@ -60,9 +63,22 @@ passwordInput.addEventListener('blur', function (){
     }
 });
 
+passwordConfirmInput.addEventListener('blur', function (){
+    if (!validate_password_confirm(passwordInput.value, passwordConfirmInput.value)){
+        set_Error(passwordConfirmInput, 'Passwords do not match');
+    } else {
+        set_Error(passwordInput);
+    }
+});
+
 
 form.addEventListener('submit', function (e){
     e.preventDefault();
+
+    if (!validate_password_confirm(passwordInput.value, passwordConfirmInput.value)) {
+        set_Error(passwordConfirmInput, 'Passwords do not match');
+        return;
+    }
 
     const formData = new FormData(form);
     formData.append('action', 'register');
@@ -93,3 +109,4 @@ form.addEventListener('submit', function (e){
 
         });
 })
+

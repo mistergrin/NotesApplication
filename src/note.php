@@ -7,13 +7,15 @@ class Note{
     private $text;
     private $image;
     private $date;
+    private $updated_at_date;
 
-    public function __construct($id, $author, $text, $image, $date){
+    public function __construct($id, $author, $text, $image, $date, $updated_at_date = null){
         $this->id = $id;
         $this->author = $author;
         $this->text = $text;
         $this->image = $image;
         $this->date = $date;
+        $this->updated_at_date = $updated_at_date;
     }
     public function createArrayNote()
     {
@@ -22,7 +24,8 @@ class Note{
             'author' => $this->author,
             'text' => $this->text,
             'image' => $this->image,
-            'date' => $this->date
+            'date' => $this->date,
+            'updated_at' => $this->updated_at_date
         ];
     }
 
@@ -41,7 +44,7 @@ class Note{
             }
         }
 
-        $date = date("d-m-Y H:i ");
+        $date = date("d-m-Y H:i:s ");
 
         return new self(null, $author, $text, $imageLink, $date);
     }
@@ -71,6 +74,10 @@ class Note{
         return $this->date;
     }
 
+    public function getNoteUpdatedDate(){
+        return $this->updated_at_date;
+    }
+
     public function setNoteText($text){
         return $this->text = $text;
     }
@@ -82,4 +89,9 @@ class Note{
     public function setNoteDate($date){
         return $this->date = $date;
     }
+
+    public function setNoteUpdatedDate($updated_at_date){
+        return $this->updated_at_date = $updated_at_date;
+    }
+
 }

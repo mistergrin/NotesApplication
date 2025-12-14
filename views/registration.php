@@ -34,11 +34,17 @@ session_start();
         <input type="password" id="password" name="password" placeholder="Password" required><br>
         <span class="error-message"></span>
     </div>
+
+    <div class="row">
+        <label for="password_confirm"> Confirm the password:</label>
+        <input type="password" id="password_confirm" name="password_again" placeholder="Password confirm" required><br>
+        <span class="error-message"></span>
+    </div>
     <button type="submit" name="submit">Register</button>
 </form>
 
 
-<p>Already have an account? <a href="loginview.php">Login here</a></p>
+<p class="center-text">Already have an account? <a href="loginview.php">Login here</a></>
 <script src="/public/registration.js"></script>
 </body>
 </html>

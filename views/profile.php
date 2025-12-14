@@ -20,10 +20,12 @@ if (!isset($_SESSION['user_id'])) {
     <div class="header-container">
         <h1 class="app-title">NotesApplication</h1>
         <nav class="nav-buttons">
+            <?php if ($_SESSION['role'] == "ADMIN"): ?>
+                <a href="/views/all_users.php" class="nav-btn">Admin Panel</a>
+            <?php endif; ?>
             <a href="/index.php" class="nav-btn">Main</a>
-            <a href="about.php" class="nav-btn">About Application</a>
-            <a href="profile.php" class="nav-btn">Your Profile</a>
-            <a href="how_to.php" class="nav-btn">How to Create a Note</a>
+            <a href="logout_view.php" class="nav-btn">Logout</a>
+            <a href="/views/profile.php" class="nav-btn">Your Profile</a>
         </nav>
     </div>
 </header>

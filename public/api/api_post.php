@@ -1,5 +1,6 @@
 <?php
 
+date_default_timezone_set('Europe/Prague');
 session_start();
 include_once __DIR__. "/../../src/controllers/userController.php";
 include_once __DIR__. "/../../src/controllers/noteController.php";
@@ -76,6 +77,30 @@ switch ($action){
         else {
             $response['success'] = false;
             $response['errors'] = $errors;
+        }
+        break;
+
+    case 'delete_note':
+        $note_controller->delete_note_image($_POST['id']);
+        $note_controller->delete_note($_POST['id']);
+
+        $response['success'] = true;
+        break;
+
+    case 'edit_note':
+        $result = $note_controller->update_note($_POST, $_FILES);
+
+        if (is_array($result) && isset($result['updated_at'])) {
+            $response['success'] = true;
+            $response['new_image_path'] = $result['new_image_path'] ?? null;
+            $response['updated_at'] = $result['updated_at'];
+        }
+        else if (is_array($result) && !empty($result)) {
+            $response['success'] = false;
+            $response['errors'] = $result['errors'];
+        }
+        else {
+            $response['success'] = false;
         }
         break;
 }

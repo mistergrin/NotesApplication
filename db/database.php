@@ -12,7 +12,27 @@ class UsersDB{
             }
             return $users;
         }
-        return [];
+        return  [];
+    }
+
+
+    public function get_all_users_paginated($page, $limit){
+        $users = self::allUsers();
+
+        $page = intval($page);
+        $limit = intval($limit);
+
+        usort($users, function($a, $b) {
+            return strcasecmp($a->getNickname(), $b->getNickname());
+        });
+
+
+        $start = ($page - 1) * $limit;
+        $paginated_users = array_slice($users, $start, $limit);
+        $total = count($users);
+
+        return  ['users' => $paginated_users, 'total' => $total, 'page' => $page, 'pages' => ceil($total / $limit)];
+
     }
 
     public function addUser(User $user){

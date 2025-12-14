@@ -1,3 +1,16 @@
+<?php
+
+session_start();
+if (!isset($_SESSION['user_id'])){
+    header("Location: /views/loginview.php");
+    exit;
+}
+else if ($_SESSION['role'] != "ADMIN"){
+    header("Location: /index.php");
+    exit;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +36,6 @@
 <table class="users-table">
     <thead>
         <tr>
-            <th>ID</th>
             <th>Nickname</th>
             <th>First Name</th>
             <th>Last Name</th>
@@ -32,10 +44,11 @@
         </tr>
     </thead>
 
-    <tbody id="users-table">
 
+    <tbody id="users-table">
     </tbody>
 </table>
+    <div class="pagination"></div>
 </div>
 
 <script src="/public/allUsers.js"></script>

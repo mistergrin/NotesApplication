@@ -1,88 +1,117 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function (){
+    loadUsers();
+})
 
-    tbody = document.getElementById('users-table');
+function loadUsers(page = 1) {
+    const tbody = document.getElementById('users-table');
 
-    fetch('/public/api/api_get.php?action=get_all_users')
-        .then(res=>res.json())
-        .then(data=>{
-            if (data.success){
-                data.users.forEach(user =>{
+    fetch(`/public/api/api_get.php?action=get_all_users&page=${page}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                const pagination = document.querySelector(".pagination");
+                tbody.innerHTML = '';
+
+                data.users.forEach(user => {
                     const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td>${user.id}</td>
-                        <td>${user.nickname}</td>
-                        <td>${user.firstname}</td>
-                        <td>${user.lastname}</td>
-                        <td>${user.role}</td>
-                        <td></td> `;
+
+                    function createTd(text) {
+                        const td = document.createElement('td');
+                        td.textContent = text;
+                        return td;
+                    }
+
+                    const actionsTd = document.createElement('td');
+                    tr.appendChild(createTd(user.nickname));
+                    tr.appendChild(createTd(user.firstname));
+                    tr.appendChild(createTd(user.lastname));
+                    tr.appendChild(createTd(user.role));
+
+                    if (user.role !== "ADMIN") {
+                        const deleteButton = document.createElement('button');
+                        const upgradeButton = document.createElement('button');
+
+                        deleteButton.className = 'delete-button';
+                        deleteButton.textContent = 'Delete';
+                        deleteButton.addEventListener('click', () => deleteUser(user.id, tr));
+
+                        upgradeButton.className = 'upgrade-button';
+                        upgradeButton.textContent = 'Upgrade Role';
+                        upgradeButton.addEventListener('click', () => upgradeUserRole(user.id, tr, actionsTd, user));
+
+                        actionsTd.append(deleteButton, upgradeButton);
+                    }
+
+                    tr.appendChild(actionsTd);
                     tbody.appendChild(tr);
-
-                    if (user.role !== "ADMIN"){
-                        const buttonsTd = tr.querySelector('td:last-child');
-                        buttonsTd.innerHTML = `
-                            <button class="delete-button">Delete</button>
-                            <button class="upgrade-button">Upgrade Role</button>`;
-                    }
-
-                    const deleteButton = tr.querySelector('.delete-button');
-                    if (deleteButton){
-                    deleteButton.addEventListener('click', function (){
-                        const userId = user.id;
-                        const formData = new FormData();
-                        formData.append('action', 'delete_user');
-                        formData.append('id', userId);
-
-                        fetch('/public/api/api_post.php',{
-                            method: "POST",
-                            body: formData
-                        })
-                            .then(res => res.json())
-                            .then(data=>{
-                                if (data.success){
-                                    tr.remove();
-                                }
-                                else {
-                                    alert(data.errors);
-                                }
-                            })
-                            .catch(err=>{
-                                console.error(err);
-                            });
-
-                    })}
-                    const upgradeButton = tr.querySelector('.upgrade-button');
-                    if (upgradeButton){
-                        upgradeButton.addEventListener('click', function () {
-                            const userId = user.id;
-                            const formData = new FormData();
-                            formData.append('action', 'upgrade_role');
-                            formData.append('id', userId);
-
-                            fetch('/public/api/api_post.php', {
-                                method: "POST",
-                                body: formData
-                            })
-                                .then(res=> res.json())
-                                .then(data=>{
-                                    if (data.success){
-                                        user.role = 'ADMIN';
-                                        tr.querySelector('td:nth-child(5)').textContent = user.role;
-                                        const buttonsTd = tr.querySelector('td:nth-child(6)');
-                                        buttonsTd.innerHTML = '';
-                                    }
-                                    else {
-                                        alert(data.errors);
-                                    }
-                                })
-                                .catch(err=>{
-                                    console.error((err));
-                                })
-                        })
-                    }
                 });
+                pagination.innerHTML = '';
+                if (data.total > 0) {
+                    createPaginationButton("Prev", data.page - 1, pagination, loadUsers, data.pages);
+                    for (let i = 1; i <= data.pages; i++) {
+                        createPaginationButton(i, i, pagination, loadUsers, data.pages);
+                    }
+                    createPaginationButton("Next", data.page + 1, pagination, loadUsers, data.pages);
+                }
+            }})
+        .catch(console.error);
+}
+
+function createPaginationButton(text, page, container, callback, totalPages) {
+
+    const btn = document.createElement("button");
+    btn.classList.add("pagination-button");
+    btn.textContent = text;
+
+    let shouldDisable = false;
+    if (page < 1) {
+        shouldDisable = true;
+    }
+    else if (page > totalPages) {
+        shouldDisable = true;
+    }
+    btn.disabled = shouldDisable;
+
+    btn.addEventListener("click", () => callback(page));
+    container.appendChild(btn);
+}
+
+function upgradeUserRole(id, row, actionsTd, user) {
+    const formData = new FormData();
+    formData.append('action', 'upgrade_role');
+    formData.append('id', id);
+
+    fetch('/public/api/api_post.php', {
+        method: "POST",
+        body: formData
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                user.role = 'ADMIN';
+                row.children[3].textContent = 'ADMIN';
+                actionsTd.innerHTML = '';
             }
         })
-        .catch(err=>{
-            console.error(err);
-        });
-});
+        .catch(console.error);
+}
+
+function deleteUser(id, row) {
+    const formData = new FormData();
+    formData.append('action', 'delete_user');
+    formData.append('id', id);
+
+    fetch('/public/api/api_post.php', {
+        method: "POST",
+        body: formData
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                row.remove();
+                loadUsers();
+            }
+        })
+        .catch(console.error);
+}
+

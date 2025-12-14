@@ -27,10 +27,10 @@ class NoteController{
 
     }
 
-    public function get_notes_by_author($author){
+    public function get_notes_by_author($author, $page = 1, $limit = 6){
 
         $author = trim($author);
-        return $this->notesDB->getNotesByAuthor($author);
+        return $this->notesDB->getNotesByAuthor($author, $page, $limit);
 
     }
 
@@ -50,27 +50,58 @@ class NoteController{
 
         $id = intval($id);
         $this->notesDB->deleteNote($id);
-        return null;
+        return [];
 
     }
 
-    public function update_note($postData){
+    public function delete_note_image($id){
+
+        $id = intval($id);
+        $this->notesDB->deleteNoteImage($id);
+        return [];
+
+    }
+
+    public function update_note($postData, $file){
         $note = $this->notesDB->getNoteById($postData['id']);
-        $errors = notes_validation($postData);
+        $errors = notes_validation($postData, $file);
+        $newImageLink = null;
+        $noteChanged = false;
 
         if (empty($errors)){
 
-            $note->setNoteText($postData['note_text']);
-            $note->setNoteImage($postData['note_image']);
-            $note->setNoteDate(date('Y-m-d H:i'));
 
-            $this->notesDB->updateNote($note);
+            if ($note->getNoteText() !== $postData['text']) {
+                $note->setNoteText($postData['text']);
+                $noteChanged = true;
+            }
 
-            return [];
-        }
+
+            if (!empty($file['image']['name'])) {
+                $ext = pathinfo($file['image']['name'], PATHINFO_EXTENSION);
+                $newFileName = uniqid('image_') . '.' . $ext;
+                $uploadDir = __DIR__ . '/../../storage/uploads/';
+                $uploadPath = $uploadDir . $newFileName;
+
+                $this->notesDB->deleteNoteImage($note->getNoteId());
+                if (move_uploaded_file($file['image']['tmp_name'], $uploadPath)) {
+                    $note->setNoteImage('/storage/uploads/' . $newFileName);
+                    $newImageLink = '/storage/uploads/' . $newFileName;
+                    $noteChanged = true;
+                }
+            }
+
+            if ($noteChanged) {
+                $updated_at = date('Y-m-d H:i:s');
+                $note->setNoteUpdatedDate($updated_at);
+                $this->notesDB->updateNote($note);
+
+                return ['updated_at' => $updated_at, 'new_image_path' => $newImageLink];
+            }}
         else{
-            return $errors;
+            return ['errors' => $errors];
         }
+        return ['no_changes' => true];
     }
 
 }
