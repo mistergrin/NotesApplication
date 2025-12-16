@@ -44,7 +44,7 @@ if(!isset($_SESSION['user_id'])){
         <span class="error-message"></span>
     </div>
 
-    <button type="submit">Add note</button>
+    <button class="create-note" type="submit">Add note</button>
 
 </form>
 

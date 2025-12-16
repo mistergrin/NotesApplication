@@ -52,6 +52,7 @@ switch ($action){
         $errors = $user_controller->delete_user($_POST['id']);
         if (empty($errors)){
             $response['success'] = true;
+            $note_controller->delete_notes_by_author_id($_POST['id']);
         } else {
             $response['success'] = false;
             $response['errors'] = $errors;

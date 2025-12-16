@@ -42,6 +42,8 @@ passwordInput.addEventListener('blur', function (){
 
 form.addEventListener('submit', function(e){
     e.preventDefault();
+    const btn = document.querySelector(".login-user");
+    btn.disabled = true;
 
     const formData = new FormData(form);
     formData.append('action', 'login')
@@ -61,6 +63,7 @@ form.addEventListener('submit', function(e){
                 window.location = data.redirect;
             }
             else {
+                btn.disabled = false
                 for (let field in data.errors){
                     const input = document.getElementById(field)
                     set_Error(input, data.errors[field]);
@@ -68,6 +71,7 @@ form.addEventListener('submit', function(e){
             }
         })
         .catch(err => {console.log("error")
+            btn.disabled = false;
         });
 })
 

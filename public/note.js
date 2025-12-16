@@ -65,6 +65,8 @@ image.addEventListener('change', function (){
 
 form.addEventListener('submit', function(e){
     e.preventDefault();
+    const btn = document.querySelector(".create-note");
+    btn.disabled = true;
 
     const formData = new FormData(form);
     formData.append('action', 'create_note');
@@ -75,13 +77,13 @@ form.addEventListener('submit', function(e){
     })
         .then(res=> res.json())
         .then(data=>{
-            console.log(data)
             const inputs = document.querySelectorAll('input');
             inputs.forEach(input => set_Error(input))
             if (data.success){
                 window.location = data.redirect
             }
             else {
+                btn.disabled = false;
                 for (let field in data.errors){
                     const input = document.getElementById(field)
                     set_Error(input, data.errors[field]);
@@ -90,6 +92,6 @@ form.addEventListener('submit', function(e){
         } )
         .catch(err => {
             console.error("Error");
-
+            btn.disabled = false;
         });
 })

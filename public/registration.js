@@ -75,6 +75,9 @@ passwordConfirmInput.addEventListener('blur', function (){
 form.addEventListener('submit', function (e){
     e.preventDefault();
 
+    const btn = document.querySelector(".register-user");
+    btn.disabled = true;
+
     if (!validate_password_confirm(passwordInput.value, passwordConfirmInput.value)) {
         set_Error(passwordConfirmInput, 'Passwords do not match');
         return;
@@ -98,6 +101,7 @@ form.addEventListener('submit', function (e){
                 window.location = data.redirect;
             }
             else {
+                btn.disabled = false;
                 for (let field in data.errors){
                     const input = document.getElementById(field)
                     set_Error(input, data.errors[field]);
@@ -106,7 +110,7 @@ form.addEventListener('submit', function (e){
         } )
         .catch(err => {
             console.error("Error");
-
+            btn.disabled = false;
         });
 })
 

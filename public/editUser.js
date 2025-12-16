@@ -61,6 +61,9 @@ cancelBtn.addEventListener('click', function () {
 
 form.addEventListener('submit', function (e){
     e.preventDefault();
+    const btn = document.querySelector(".save-changes");
+    btn.disabled = true;
+
     const formData = new FormData(form);
     formData.append('action', 'edit');
 
@@ -83,6 +86,7 @@ form.addEventListener('submit', function (e){
                 document.querySelector('#newLastName').textContent = formData.get('last_name');
             }
             else {
+                btn.disabled = false;
                 for (let field in data.errors){
                     const input = document.getElementById(field)
                     set_Error(input, data.errors[field]);
@@ -90,5 +94,6 @@ form.addEventListener('submit', function (e){
             }
         })
         .catch(err => {console.log("error")
+            btn.disabled = false;
         });
 })

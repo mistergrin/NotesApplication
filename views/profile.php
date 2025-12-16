@@ -59,7 +59,7 @@ if (!isset($_SESSION['user_id'])) {
                     <input type="text" id="last_name" name="last_name" value="<?= htmlspecialchars($_SESSION['last_name']) ?>" required>
                     <span class="error-message"></span>
                 </div>
-                <button type="submit" name="save">Save Changes</button>
+                <button type="submit" name="save" class="save-changes">Save Changes</button>
                 <button type="button" id="cancelButton">Cancel</button>
             </form>
         </div>

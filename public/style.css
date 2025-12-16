@@ -491,3 +491,100 @@ footer {
     margin-top: 250px;
 }
 
+.pagination-dots {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0 10px;
+    color: #666;
+    display: flex;
+    align-items: center;
+}
+
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+        font-size: 12pt;
+        font-family: Georgia, serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    header,
+    .nav-buttons,
+    button,
+    .read-more,
+    .pagination,
+    .modal-background,
+    .modal-content,
+    footer {
+        display: none !important;
+    }
+
+    h1, h2 {
+        color: black !important;
+        page-break-after: avoid;
+    }
+
+    .users-table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        font-size: 12pt;
+    }
+
+    .users-table th,
+    .users-table td {
+        border: 1px solid black !important;
+        padding: 5px !important;
+        color: black !important;
+    }
+
+    .table-section,
+    .notes-container,
+    .note-card {
+        box-shadow: none !important;
+        background: white !important;
+    }
+
+    .table-section,
+    .note-card {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .note-card,
+    .users-table tr {
+        page-break-inside: avoid;
+    }
+
+    .center-text,
+    .no-notes-message {
+        text-align: left !important;
+        font-size: 12pt;
+    }
+
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+        page-break-inside: avoid;
+    }
+
+    .users-table td:last-child {
+        display: block !important;
+        word-break: break-word;
+    }
+
+    .users-table td:last-child button {
+        display: none !important;
+    }
+
+    .users-table td:last-child::before {
+        content: "Actions";
+        font-style: italic;
+        color: gray;
+    }
+
+    .center-text {
+        text-align: center !important;
+    }
+}

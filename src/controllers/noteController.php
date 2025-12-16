@@ -92,7 +92,7 @@ class NoteController{
             }
 
             if ($noteChanged) {
-                $updated_at = date('Y-m-d H:i:s');
+                $updated_at = date('d-m-Y H:i:s');
                 $note->setNoteUpdatedDate($updated_at);
                 $this->notesDB->updateNote($note);
 
@@ -102,6 +102,13 @@ class NoteController{
             return ['errors' => $errors];
         }
         return ['no_changes' => true];
+    }
+
+    public function delete_notes_by_author_id($id){
+        $id = intval($id);
+        $this->notesDB->delete_notes_by_author_id($id);
+
+        return [];
     }
 
 }

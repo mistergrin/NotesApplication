@@ -93,11 +93,7 @@ function loadNotes(page = 1){
                 const pagination = document.querySelector(".pagination");
                 pagination.innerHTML = '';
 
-                createPaginationButton("Prev", data.page - 1, data.page, pagination, loadNotes, data.pages);
-                for (let i = 1; i <= data.pages; i++) {
-                    createPaginationButton(i, i, data.page, pagination, loadNotes, data.pages);
-                }
-                createPaginationButton("Next", data.page + 1, data.page, pagination, loadNotes, data.pages);
+                renderPagination(data.page, data.pages, pagination);
 
                 }
             else {
@@ -108,6 +104,38 @@ function loadNotes(page = 1){
             }})
         .catch(err => {
         console.error("Error")});
+}
+
+
+function addDots(container) {
+    const span = document.createElement("span");
+    span.textContent = "...";
+    span.className = "pagination-dots";
+    container.appendChild(span);
+}
+
+function renderPagination(currentPage, totalPages, container) {
+    container.innerHTML = '';
+
+    const delta = 1;
+    createPaginationButton("Prev", currentPage - 1, currentPage, container, loadNotes, totalPages);
+    createPaginationButton(1, 1, currentPage, container, loadNotes, totalPages);
+
+    if (currentPage - delta > 2) {
+        addDots(container);
+    }
+    for (let i = Math.max(2, currentPage - delta); i <= Math.min(totalPages - 1, currentPage + delta); i++) {
+        createPaginationButton(i, i, currentPage, container, loadNotes, totalPages);
+    }
+
+    if (currentPage + delta < totalPages - 1) {
+        addDots(container);
+    }
+
+    if (totalPages > 1) {
+        createPaginationButton(totalPages, totalPages, currentPage, container, loadNotes, totalPages);
+    }
+    createPaginationButton("Next", currentPage + 1, currentPage, container, loadNotes, totalPages);
 }
 
 

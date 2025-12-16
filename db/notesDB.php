@@ -124,5 +124,18 @@ class NotesDB{
         }, $notes);
         file_put_contents(self::$file, json_encode($data, JSON_PRETTY_PRINT));
     }
+
+    public function delete_notes_by_author_id($author_id){
+        $notes = self::allNotes();
+        foreach($notes as $index=> $note){
+            if ($note->getNoteAuthorId() == $author_id){
+                unset($notes[$index]);
+            }
+        }
+        $data = array_map(function($note) {
+            return $note->createArrayNote();
+        }, $notes);
+        file_put_contents(self::$file, json_encode($data, JSON_PRETTY_PRINT));
+    }
 }
 

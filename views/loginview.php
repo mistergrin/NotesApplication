@@ -24,7 +24,7 @@ session_start();
         <input type="password" id="password" name="password" placeholder="Password" required><br>
         <span class="error-message"></span>
     </div>
-    <button type="submit" name="submit">Login</button>
+    <button type="submit" class="login-user" name="submit">Login</button>
 </form>
 
 <script src="/public/login.js"></script>

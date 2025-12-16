@@ -47,11 +47,7 @@ function loadUsers(page = 1) {
                 });
                 pagination.innerHTML = '';
                 if (data.total > 0) {
-                    createPaginationButton("Prev", data.page - 1, pagination, loadUsers, data.pages);
-                    for (let i = 1; i <= data.pages; i++) {
-                        createPaginationButton(i, i, pagination, loadUsers, data.pages);
-                    }
-                    createPaginationButton("Next", data.page + 1, pagination, loadUsers, data.pages);
+                    renderPagination(data.page, data.pages, pagination);
                 }
             }})
         .catch(console.error);
@@ -115,3 +111,33 @@ function deleteUser(id, row) {
         .catch(console.error);
 }
 
+function addDots(container) {
+    const span = document.createElement("span");
+    span.textContent = "...";
+    span.className = "pagination-dots";
+    container.appendChild(span);
+}
+
+function renderPagination(currentPage, totalPages, container) {
+    container.innerHTML = '';
+
+    const delta = 1;
+    createPaginationButton("Prev", currentPage - 1, container, loadUsers, totalPages, currentPage);
+    createPaginationButton(1, 1, container, loadUsers, totalPages, currentPage);
+
+    if (currentPage - delta > 2) {
+        addDots(container);
+    }
+    for (let i = Math.max(2, currentPage - delta); i <= Math.min(totalPages - 1, currentPage + delta); i++) {
+        createPaginationButton(i, i, container, loadUsers, totalPages, currentPage);
+    }
+
+    if (currentPage + delta < totalPages - 1) {
+        addDots(container);
+    }
+
+    if (totalPages > 1) {
+        createPaginationButton(totalPages, totalPages, container, loadUsers, totalPages, currentPage);
+    }
+    createPaginationButton("Next", currentPage + 1, container, loadUsers, totalPages, currentPage);
+}

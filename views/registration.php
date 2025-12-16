@@ -40,7 +40,7 @@ session_start();
         <input type="password" id="password_confirm" name="password_again" placeholder="Password confirm" required><br>
         <span class="error-message"></span>
     </div>
-    <button type="submit" name="submit">Register</button>
+    <button type="submit" class="register-user" name="submit">Register</button>
 </form>
 
 
