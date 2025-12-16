@@ -27,16 +27,16 @@ class NoteController{
 
     }
 
-    public function get_notes_by_author($author, $page = 1, $limit = 6){
+    public function get_notes_by_authorId($id, $page = 1, $limit = 6){
 
-        $author = trim($author);
-        return $this->notesDB->getNotesByAuthor($author, $page, $limit);
+        $id = intval($id);
+        return $this->notesDB->getNotesByAuthorId($id, $page, $limit);
 
     }
 
     public function create_note($postData, $fileData){
         $errors = notes_validation($postData, $fileData);
-        $author = $_SESSION['nickname'];
+        $author = $_SESSION['user_id'];
 
         if (!empty($errors)) {
             return $errors;

@@ -3,15 +3,15 @@
 class Note{
 
     private $id;
-    private $author;
+    private $author_id;
     private $text;
     private $image;
     private $date;
     private $updated_at_date;
 
-    public function __construct($id, $author, $text, $image, $date, $updated_at_date = null){
+    public function __construct($id, $author_id, $text, $image, $date, $updated_at_date = null){
         $this->id = $id;
-        $this->author = $author;
+        $this->author_id = $author_id;
         $this->text = $text;
         $this->image = $image;
         $this->date = $date;
@@ -21,7 +21,7 @@ class Note{
     {
         return [
             'id' => $this->id,
-            'author' => $this->author,
+            'author_id' => $this->author_id,
             'text' => $this->text,
             'image' => $this->image,
             'date' => $this->date,
@@ -58,8 +58,8 @@ class Note{
         $this->id = $id;
     }
 
-    public function getNoteAuthor(){
-        return $this->author;
+        public function getNoteAuthorId(){
+        return $this->author_id;
     }
 
     public function getNoteText(){

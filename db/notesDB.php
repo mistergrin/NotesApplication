@@ -10,7 +10,7 @@ class NotesDB{
             $notes = [];
             $data = json_decode(file_get_contents(self::$file), true);
             foreach($data as $note){
-                $notes[] = new Note($note['id'], $note['author'], $note['text'], $note['image'], $note['date'], $note['updated_at'] ?? null);
+                $notes[] = new Note($note['id'], $note['author_id'], $note['text'], $note['image'], $note['date'], $note['updated_at'] ?? null);
             }
             return $notes;
         }
@@ -45,7 +45,7 @@ class NotesDB{
         return null;
     }
 
-    public function getNotesByAuthor($author, $page, $limit){
+    public function getNotesByAuthorId($id, $page, $limit){
 
         $notes = self::allNotes();
         $found_notes = [];
@@ -54,7 +54,7 @@ class NotesDB{
         $limit = intval($limit);
 
         foreach($notes as $note){
-            if ($note->getNoteAuthor() == $author){
+            if ($note->getNoteAuthorId() == $id){
                 $found_notes[] = $note;
 
             }

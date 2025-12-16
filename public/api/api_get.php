@@ -31,7 +31,7 @@ switch ($action) {
     case 'get_notes_by_user':
 
         $page = $_GET['page'];
-        $data = $note_controller->get_notes_by_author($_SESSION['nickname'], $page);
+        $data = $note_controller->get_notes_by_authorId($_SESSION['user_id'], $page);
 
         $response['success'] = true;
         $response['notes'] = array_map(function($note){
