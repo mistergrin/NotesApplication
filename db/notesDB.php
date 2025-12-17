@@ -137,5 +137,21 @@ class NotesDB{
         }, $notes);
         file_put_contents(self::$file, json_encode($data, JSON_PRETTY_PRINT));
     }
+
+    public function deleteAllImagesByAuthorId($author_id) {
+        $notes = self::allNotes();
+        foreach ($notes as $note) {
+            if ($note->getNoteAuthorId() == $author_id) {
+                $imagePath = $note->getNoteImage();
+                if ($imagePath) {
+                    $fullPath = __DIR__ . '/../' . ltrim($note->getNoteImage(), '/');
+                    if (file_exists($fullPath)) {
+                        unlink($fullPath);
+                    }
+                }
+            }
+        }
+    }
+
 }
 

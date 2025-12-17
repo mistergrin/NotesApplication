@@ -111,5 +111,12 @@ class NoteController{
         return [];
     }
 
+    public function delete_all_images_by_note_id($id){
+        $id = intval($id);
+        $this->notesDB->deleteAllImagesByAuthorId($id);
+
+        return [];
+    }
+
 }
 
