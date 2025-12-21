@@ -65,13 +65,14 @@ image.addEventListener('change', function (){
 
 form.addEventListener('submit', function(e){
     e.preventDefault();
+    
     const btn = document.querySelector(".create-note");
     btn.disabled = true;
 
     const formData = new FormData(form);
     formData.append('action', 'create_note');
 
-    fetch("/public/api/api_post.php", {
+    fetch("/~hryshiva/site/public/api/api_post.php", {
         method: "POST",
         body: formData
     })

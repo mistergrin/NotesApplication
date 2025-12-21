@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['nickname'])) {
-    header("Location: /views/loginview.php");
+if (!isset($_SESSION['user_id'])) {
+    header("Location: /~hryshiva/site/views/loginview.php");
     exit;
 }
 ?>
@@ -11,7 +11,7 @@ if (!isset($_SESSION['nickname'])) {
 <head>
     <meta charset="utf-8">
     <title>Notes Application</title>
-    <link rel="stylesheet" href="public/style.css">
+    <link rel="stylesheet" href="/~hryshiva/site/public/style.css">
 </head>
 
 <body>
@@ -20,11 +20,11 @@ if (!isset($_SESSION['nickname'])) {
         <h1 class="app-title">NotesApplication</h1>
         <nav class="nav-buttons">
             <?php if ($_SESSION['role'] == "ADMIN"): ?>
-            <a href="/views/all_users.php" class="nav-btn">Admin Panel</a>
+            <a href="/~hryshiva/site/views/all_users.php" class="nav-btn">Admin Panel</a>
             <?php endif; ?>
-            <a href="views/notes_form.php" class="nav-btn">Create a note</a>
-            <a href="views/logout_view.php" class="nav-btn">Logout</a>
-            <a href="/views/profile.php" class="nav-btn">Your Profile</a>
+            <a href="/~hryshiva/site/views/notes_form.php" class="nav-btn">Create a note</a>
+            <a href="/~hryshiva/site/views/logout_view.php" class="nav-btn">Logout</a>
+            <a href="/~hryshiva/site/views/profile.php" class="nav-btn">Your Profile</a>
         </nav>
     </div>
 </header>
@@ -71,6 +71,6 @@ if (!isset($_SESSION['nickname'])) {
         <div class="pagination"></div>
     </div>
 </main>
-<script src="/public/main.js"></script>
+<script src="/~hryshiva/site/public/main.js"></script>
 </body>
 </html>

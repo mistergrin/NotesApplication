@@ -82,6 +82,7 @@ function validateImage(input){
         set_Error(input);
         return true;
     }
+
     if (!allowed_types.includes(file.type)) {
         set_Error(input, 'Only JPG, JPEG, PNG or GIF allowed');
         return false
@@ -120,7 +121,7 @@ function createPaginationButton(text, page, currentPage, container, callback, to
 
 
 function loadNotes(page = 1){
-    fetch(`public/api/api_get.php?action=get_notes_by_user&page=${page}`)
+    fetch(`/~hryshiva/site/public/api/api_get.php?action=get_notes_by_user&page=${page}`)
         .then(res => res.json())
         .then(data => {
             const container = document.querySelector(".notes-container");
@@ -180,6 +181,8 @@ function renderPagination(currentPage, totalPages, container) {
 }
 
 
+
+
 document.addEventListener("DOMContentLoaded", ()=>
 loadNotes())
 
@@ -227,7 +230,7 @@ document.addEventListener("click", function(e){
         apiData.append('action', 'delete_note');
         apiData.append('id', noteId);
 
-        fetch("public/api/api_post.php", {
+        fetch("/~hryshiva/site/public/api/api_post.php", {
             method: "POST",
             body: apiData
         })
@@ -279,7 +282,7 @@ document.querySelector(".modal-edit-form").addEventListener("submit", function (
     formData.append('action', 'edit_note');
     formData.append('id', noteId);
 
-    fetch('/public/api/api_post.php', {
+    fetch('/~hryshiva/site/public/api/api_post.php', {
         method: 'POST',
         body: formData
     })

@@ -1,14 +1,39 @@
 <?php
 
+
+/**
+ * API router for handling POST requests for user and note operations.
+ *
+ * Supported actions:
+ * - register       : Register a new user
+ * - login          : User login
+ * - edit           : Edit user information
+ * - delete_user    : Delete a user and their notes/images
+ * - create_note    : Create a new note
+ * - upgrade_role   : Upgrade user role to ADMIN
+ * - delete_note    : Delete a note and its image
+ * - edit_note      : Update a note and optionally its image
+ *
+ * Responds with JSON data.
+ */
+
+
 date_default_timezone_set('Europe/Prague');
 session_start();
 include_once __DIR__. "/../../src/controllers/userController.php";
 include_once __DIR__. "/../../src/controllers/noteController.php";
 
+/** @var string $action Action to perform, passed via POST parameter */
 $action = $_POST['action'];
+
+/** Set response type as JSON */
 header('Content-Type: application/json');
+
+/** @var UserController $user_controller */
 $user_controller = new UserController();
+/** @var NoteController $note_controller */
 $note_controller = new NoteController();
+/** @var array $response Array to store API response */
 $response = [];
 
 
@@ -18,7 +43,7 @@ switch ($action){
         $errors = $user_controller->register_user($_POST);
         if (empty($errors)){
             $response['success'] = true;
-            $response['redirect'] = '/index.php';
+            $response['redirect'] = '/~hryshiva/site/index.php';
         }
         else {
             $response['success'] = false;
@@ -30,7 +55,7 @@ switch ($action){
         $errors = $user_controller->login_user($_POST);
         if (empty($errors)){
             $response['success'] = true;
-            $response['redirect'] = '/index.php';
+            $response['redirect'] = '/~hryshiva/site/index.php';
         }
         else {
             $response['success'] = false;
@@ -64,7 +89,7 @@ switch ($action){
         $errors = $note_controller->create_note($_POST, $_FILES);
         if (empty($errors)){
             $response['success'] = true;
-            $response['redirect'] = '/index.php';
+            $response['redirect'] = '/~hryshiva/site/index.php';
         } else {
             $response['success'] = false;
             $response['errors'] = $errors;
@@ -107,4 +132,5 @@ switch ($action){
         break;
 }
 
+/** Output JSON response */
 echo json_encode($response);

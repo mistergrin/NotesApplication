@@ -7,7 +7,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
-    <link rel="stylesheet" href="/public/style.css">
+    <link rel="stylesheet" href="/~hryshiva/site/public/style.css">
  </head>
 <body>
 <h1>Register</h1>
@@ -44,7 +44,7 @@ session_start();
 </form>
 
 
-<p class="center-text">Already have an account? <a href="loginview.php">Login here</a></>
-<script src="/public/registration.js"></script>
+<p class="center-text">Already have an account? <a href="/~hryshiva/site/views/loginview.php">Login here</a></>
+<script src="/~hryshiva/site/public/registration.js"></script>
 </body>
 </html>

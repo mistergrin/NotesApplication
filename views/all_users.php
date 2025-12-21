@@ -1,12 +1,12 @@
 <?php
 
 session_start();
-if (!isset($_SESSION['nickname'])){
-    header("Location: /views/loginview.php");
+if (!isset($_SESSION['user_id'])){
+    header("Location: /~hryshiva/site/views/loginview.php");
     exit;
 }
 else if ($_SESSION['role'] != "ADMIN"){
-    header("Location: /index.php");
+    header("Location: /~hryshiva/site/index.php");
     exit;
 }
 
@@ -24,8 +24,8 @@ else if ($_SESSION['role'] != "ADMIN"){
     <div class="header-container">
         <h1 class="app-title">Admin Panel - Users</h1>
         <nav class="nav-buttons">
-            <a href="/index.php" class="nav-btn">Home</a>
-            <a href="/views/profile.php" class="nav-btn">Your Profile</a>
+            <a href="/~hryshiva/site/index.php" class="nav-btn">Home</a>
+            <a href="/~hryshiva/site/views/profile.php" class="nav-btn">Your Profile</a>
         </nav>
     </div>
 </header>
@@ -51,6 +51,6 @@ else if ($_SESSION['role'] != "ADMIN"){
     <div class="pagination"></div>
 </div>
 
-<script src="/public/allUsers.js"></script>
+<script src="/~hryshiva/site/public/allUsers.js"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function (){
 function loadUsers(page = 1) {
     const tbody = document.getElementById('users-table');
 
-    fetch(`/public/api/api_get.php?action=get_all_users&page=${page}`)
+    fetch(`/~hryshiva/site/public/api/api_get.php?action=get_all_users&page=${page}`)
         .then(res => res.json())
         .then(data => {
             if (data.success) {
@@ -77,7 +77,7 @@ function upgradeUserRole(id, row, actionsTd, user) {
     formData.append('action', 'upgrade_role');
     formData.append('id', id);
 
-    fetch('/public/api/api_post.php', {
+    fetch('/~hryshiva/site/public/api/api_post.php', {
         method: "POST",
         body: formData
     })
@@ -97,7 +97,7 @@ function deleteUser(id, row) {
     formData.append('action', 'delete_user');
     formData.append('id', id);
 
-    fetch('/public/api/api_post.php', {
+    fetch('/~hryshiva/site/public/api/api_post.php', {
         method: "POST",
         body: formData
     })

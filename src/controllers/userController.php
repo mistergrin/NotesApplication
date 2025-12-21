@@ -6,15 +6,50 @@ require_once __DIR__. "/../validations/registr_validation.php";
 require_once __DIR__. "/../user.php";
 require_once __DIR__. "/../validations/updating_user_validation.php";
 
+
+
+/**
+ * Class UserController
+ *
+ * Handles user-related operations such as registration, login, logout,
+ * profile editing, deletion, and role management. Acts as a controller
+ * between requests and the UsersDB storage layer.
+ */
+
+
 class UserController{
 
+
+    /**
+     * @var UsersDB Instance of UsersDB for database operations
+     */
     private UsersDB $usersDB;
+
+    /**
+     * @var User User model instance
+     */
     private User $user;
+
+    /**
+     * UserController constructor.
+     *
+     * Initializes the UsersDB and User instances.
+     */
 
     public function __construct(){
         $this->usersDB = new UsersDB();
         $this->user = new User(null, null, null, null, null, null);
     }
+
+    
+    /**
+     * Get a user by ID.
+     *
+     * @param int|string $user_id User ID
+     *
+     * @return User|null User object if found, null otherwise
+     */
+
 
     public function get_user_by_id($user_id){
 
@@ -23,6 +58,14 @@ class UserController{
 
     }
 
+    /**
+     * Get a user by nickname.
+     *
+     * @param string $nickname User nickname
+     *
+     * @return User|null User object if found, null otherwise
+     */
+
     public function get_user_by_nickname($nickname){
 
         $nickname = trim($nickname);
@@ -30,11 +73,28 @@ class UserController{
 
     }
 
+    /**
+     * Get all users with pagination.
+     *
+     * @param int $page Page number (default 1)
+     * @param int $limit Number of users per page (default 5)
+     *
+     * @return array Paginated list of users
+     */
+
     public function get_all_users($page = 1, $limit = 5){
 
         return $this->usersDB->get_all_users_paginated($page, $limit);
 
     }
+
+    /**
+     * Register a new user.
+     *
+     * @param array $postData POST data from registration form
+     *
+     * @return array Empty array if successful, or array of validation errors
+     */
 
     public function register_user($postData){
 
@@ -46,6 +106,15 @@ class UserController{
         $this->usersDB->addUser($this->user->create($postData));
         return [];
     }
+
+    /**
+     * Login a user.
+     *
+     * @param array $postData POST data from login form
+     *
+     * @return array Array of validation errors or empty array if login is successful
+     */
+
 
     public function login_user($postData){
         $errors = login_validation($postData);
@@ -74,16 +143,35 @@ class UserController{
         return $errors;
     }
 
+
+    /**
+     * Logout the current user.
+     *
+     * Destroys session and clears cookies.
+     *
+     * @return void
+     */
+
+    
     public function logout_user(){
 
         $_SESSION = [];
         setcookie('PHPSESSID', '', time() - 1, '/', '', true, true);
 
         session_destroy();
-        header("Location: /views/loginview.php");
+        header("Location: /~hryshiva/site/views/loginview.php");
         exit;
 
     }
+
+    /**
+     * Edit the currently logged-in user's profile.
+     *
+     * @param array $postData POST data from profile form
+     *
+     * @return array Empty array if successful, or array of validation errors
+     */
+
 
     public function edit_user($postData){
         $user = $this->usersDB->getUserByID($_SESSION['user_id']);
@@ -108,6 +196,16 @@ class UserController{
         return [];
 
     }
+
+    /**
+     * Delete a user by ID.
+     *
+     * @param int|string $user_id User ID
+     *
+     * @return array Empty array if successful, or array with error messages
+     */
+
+
     public function delete_user($user_id){
         $user_id = intval($user_id);
         $user = $this->usersDB->getUserByID($user_id);
@@ -121,6 +219,15 @@ class UserController{
         $this->usersDB->deleteUser($user_id);
         return [];
     }
+
+
+    /**
+     * Upgrade a user's role to ADMIN.
+     *
+     * @param int|string $user_id User ID
+     *
+     * @return array Empty array if successful, or array with error messages
+     */
 
     public function upgrade_user_role($user_id){
         $user_id = intval($user_id);

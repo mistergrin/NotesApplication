@@ -75,18 +75,18 @@ passwordConfirmInput.addEventListener('blur', function (){
 form.addEventListener('submit', function (e){
     e.preventDefault();
 
-    const btn = document.querySelector(".register-user");
-    btn.disabled = true;
-
     if (!validate_password_confirm(passwordInput.value, passwordConfirmInput.value)) {
         set_Error(passwordConfirmInput, 'Passwords do not match');
         return;
     }
 
+    const btn = document.querySelector(".register-user");
+    btn.disabled = true;
+
     const formData = new FormData(form);
     formData.append('action', 'register');
 
-    fetch('/public/api/api_post.php',
+    fetch('/~hryshiva/site/public/api/api_post.php',
         {
             method: "POST",
             body: formData

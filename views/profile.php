@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['nickname'])) {
-    header("Location: /views/loginview.php");
+if (!isset($_SESSION['user_id'])) {
+    header("Location: /~hryshiva/site/views/loginview.php");
     exit;
 }
 ?>
@@ -12,7 +12,7 @@ if (!isset($_SESSION['nickname'])) {
 <head>
     <meta charset="UTF-8">
     <title>Your Profile</title>
-    <link rel="stylesheet" href="/public/style.css">
+    <link rel="stylesheet" href="/~hryshiva/site/public/style.css">
 </head>
 
 <body>
@@ -21,11 +21,11 @@ if (!isset($_SESSION['nickname'])) {
         <h1 class="app-title">NotesApplication</h1>
         <nav class="nav-buttons">
             <?php if ($_SESSION['role'] == "ADMIN"): ?>
-                <a href="/views/all_users.php" class="nav-btn">Admin Panel</a>
+                <a href="/~hryshiva/site/views/all_users.php" class="nav-btn">Admin Panel</a>
             <?php endif; ?>
-            <a href="/index.php" class="nav-btn">Main</a>
-            <a href="logout_view.php" class="nav-btn">Logout</a>
-            <a href="/views/profile.php" class="nav-btn">Your Profile</a>
+            <a href="/~hryshiva/site/index.php" class="nav-btn">Main</a>
+            <a href="/~hryshiva/site/views/logout_view.php" class="nav-btn">Logout</a>
+            <a href="/~hryshiva/site/views/profile.php" class="nav-btn">Your Profile</a>
         </nav>
     </div>
 </header>
@@ -59,7 +59,7 @@ if (!isset($_SESSION['nickname'])) {
                     <input type="text" id="last_name" name="last_name" value="<?= htmlspecialchars($_SESSION['last_name']) ?>" required>
                     <span class="error-message"></span>
                 </div>
-                <button type="submit" name="save" class="save-changes">Save Changes</button>
+                <button type="submit" name="save">Save Changes</button>
                 <button type="button" id="cancelButton">Cancel</button>
             </form>
         </div>
@@ -68,6 +68,6 @@ if (!isset($_SESSION['nickname'])) {
     </section>
 
 
-<script src="/public/editUser.js"></script>
+<script src="/~hryshiva/site/public/editUser.js"></script>
 </body>
 </html>

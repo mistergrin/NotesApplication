@@ -1,8 +1,27 @@
 <?php
 require_once __DIR__ . "/../src/user.php";
+
+/**
+ * Class UsersDB
+ *
+ * Provides a simple file-based storage for User entities.
+ * Users are stored in a JSON file and loaded into User objects.
+ */
+
 class UsersDB{
+
+    /**
+     * Path to the JSON file used as storage.
+     *
+     * @var string
+     */
      private static $file = __DIR__ . '/../storage/users.json';
 
+     /**
+     * Retrieve all users from storage.
+     *
+     * @return User[] List of all users
+     */
     public function allUsers() {
         if (!empty(self::$file)) {
             $users = [];
@@ -15,6 +34,22 @@ class UsersDB{
         return  [];
     }
 
+
+     /**
+     * Retrieve users with pagination and sorting.
+     *
+     * Users are sorted alphabetically by nickname.
+     *
+     * @param int $page  Page number (starting from 1)
+     * @param int $limit Number of users per page
+     *
+     * @return array{
+     *     users: User[],
+     *     total: int,
+     *     page: int,
+     *     pages: int
+     * }
+     */
 
     public function get_all_users_paginated($page, $limit){
         $users = self::allUsers();
@@ -35,6 +70,18 @@ class UsersDB{
 
     }
 
+
+
+      /**
+     * Add a new user to storage.
+     *
+     * Automatically assigns a unique ID to the user.
+     *
+     * @param User $user User to add
+     *
+     * @return void
+     */
+
     public function addUser(User $user){
         $users = self::allUsers();
         if (count($users) > 0) {
@@ -52,6 +99,14 @@ class UsersDB{
         file_put_contents(self::$file, json_encode($data, JSON_PRETTY_PRINT));
     }
 
+    /**
+     * Find a user by nickname.
+     *
+     * @param string $username User nickname
+     *
+     * @return User|null User object if found, null otherwise
+     */
+
     public function getUserByNickname($username){
         $users = self::allUsers();
         foreach ($users as $user){
@@ -62,6 +117,14 @@ class UsersDB{
         return null;
     }
 
+     /**
+     * Find a user by ID.
+     *
+     * @param int $id User ID
+     *
+     * @return User|null User object if found, null otherwise
+     */
+
     public function getUserByID($id){
         $users = self::allUsers();
         foreach ($users as $user){
@@ -71,6 +134,14 @@ class UsersDB{
         }
         return null;
     }
+
+    /**
+     * Update an existing user.
+     *
+     * @param User $updated_user Updated user object
+     *
+     * @return void
+     */
 
     public function updateUser($updated_user)
     {
@@ -89,6 +160,14 @@ class UsersDB{
     }
 
 
+    /**
+     * Delete a user by ID.
+     *
+     * @param int $id User ID
+     *
+     * @return void
+     */
+
     public function deleteUser($id){
         $users = self::allUsers();
 
@@ -104,6 +183,14 @@ class UsersDB{
 
         file_put_contents(self::$file, json_encode($data, JSON_PRETTY_PRINT));
     }
+
+    /**
+     * Upgrade a user's role to ADMIN.
+     *
+     * @param int $id User ID
+     *
+     * @return void
+     */
 
     public function upgradeUserRole($id){
         $users = self::allUsers();

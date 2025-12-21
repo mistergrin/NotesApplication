@@ -7,7 +7,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="/public/style.css">
+    <link rel="stylesheet" href="/~hryshiva/site/public/style.css">
 </head>
 <body>
 <h1>Login</h1>
@@ -27,7 +27,7 @@ session_start();
     <button type="submit" class="login-user" name="submit">Login</button>
 </form>
 
-<script src="/public/login.js"></script>
-<p class="center-text">Don't have an account? <a href="registration.php">Register here</a></p>
+<script src="/~hryshiva/site/public/login.js"></script>
+<p class="center-text">Don't have an account? <a href="/~hryshiva/site/views/registration.php">Register here</a></p>
 </body>
 </html>

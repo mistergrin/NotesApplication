@@ -2,6 +2,27 @@
 
 require_once __DIR__ . "/../../db/database.php";
 
+
+/**
+ * Validate registration form data.
+ *
+ * Checks that nickname, first name, last name, and password are provided,
+ * validates the format of names, ensures password length, and checks
+ * for unique nickname.
+ *
+ * @param array $data POST data containing 'nickname', 'first_name', 'last_name', 'password'
+ *
+ * @return array Associative array of errors.
+ *               - Empty array if validation passes (no errors)
+ *               - Otherwise, contains keys for invalid fields with error messages
+ *               e.g., [
+ *                       'nickname' => 'This nickname already exists',
+ *                       'first_name' => 'First name can only contain letters and white spaces',
+ *                       'password' => 'Password cannot be less than 5 characters'
+ *                     ]
+ */
+
+
 function validation_registration($data)
 {
     $errors = [];
