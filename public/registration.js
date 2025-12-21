@@ -67,7 +67,7 @@ passwordConfirmInput.addEventListener('blur', function (){
     if (!validate_password_confirm(passwordInput.value, passwordConfirmInput.value)){
         set_Error(passwordConfirmInput, 'Passwords do not match');
     } else {
-        set_Error(passwordInput);
+        set_Error(passwordConfirmInput);
     }
 });
 

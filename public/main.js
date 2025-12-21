@@ -58,6 +58,47 @@ function set_Error(inputNode, message=''){
     }
 }
 
+function validateText(text){
+    const value = text.value.trim();
+
+    if (!value){
+        set_Error(text, "Text cannot be empty");
+        return false;
+    }
+
+    if (value.length > 3000){
+        set_Error(text, "Text is too long (max 3000 chars)");
+        return false;
+    }
+    set_Error(text);
+    return true;
+}
+
+function validateImage(input){
+    const file = input.files[0];
+    const allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+
+    if (!file) {
+        set_Error(input);
+        return true;
+    }
+    if (!allowed_types.includes(file.type)) {
+        set_Error(input, 'Only JPG, JPEG, PNG or GIF allowed');
+        return false
+    }
+    set_Error(input);
+    return true;
+}
+
+document.addEventListener('focusout', function (e) {
+    if (e.target.classList.contains('modal-edit-text')) {
+        validateText(e.target);
+    }
+    if (e.target.classList.contains('modal-edit-image')) {
+        validateImage(e.target);
+    }
+});
+
 
 function createPaginationButton(text, page, currentPage, container, callback, totalPages) {
     const btn = document.createElement("button");
