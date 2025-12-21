@@ -194,41 +194,6 @@ The project follows the **MVC (Model–View–Controller)** architecture.
 - Dynamic generation of **note cards**
 - Dynamic generation of **tables in the Admin Panel**
 
-## 🗂 Project Structure
-```
-site/
-├── index.php
-├── views/
-│ ├── loginview.php
-│ ├── registration.php
-│ ├── profile.php
-│ ├── notes_form.php
-│ └── all_users.php
-├── public/
-│ ├──api
-│ │   ├──api_get.php
-│ │   └──api_post.php
-│ ├── style.css
-│ └── *.js
-├── src/
-│ ├── controllers/
-│ ├── validations/
-│ │   ├── login_validation.php
-│ │   ├── note_validation.php
-│ │   ├── registr_validation.php
-│ │   └── updating_user_validation.php
-│ ├── user.php
-│ └── note.php
-├── db/
-│ ├── database.php
-│ └── notesDB.php
-├── storage/
-│ ├── users.json
-│ ├── notes.json
-│ └── uploads/
-└── documentation/
-    └── Product Documenataion
-```
 
 ## 📚 Documentation
 
