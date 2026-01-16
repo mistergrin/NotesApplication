@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-            <title>Documentation</title>
+            <title>Site</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="../">
@@ -25,7 +25,7 @@
     </head>
 <body id="top">
     <header class="phpdocumentor-header phpdocumentor-section">
-    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">Documentation</a></h1>
+    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">Site</a></h1>
     <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
     <label class="phpdocumentor-header__menu-icon" for="menu-button">
         <i class="fas fa-bars"></i>
@@ -202,6 +202,13 @@
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>Convert the User object to an associative array for storage.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/User.html#method_createToPublicArray">createToPublicArray()</a>
+    <span>
+                                &nbsp;: array{id: int|null, nickname: string, firstname: string, lastname: string, role: string}    </span>
+</dt>
+<dd>Convert the User object to a public-safe associative array.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/User.html#method_getFirstName">getFirstName()</a>
@@ -631,7 +638,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/user.php"><a href="files/src-user.html"><abbr title="src/user.php">user.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">81</span>
+    <span class="phpdocumentor-element-found-in__line">104</span>
 
     </aside>
 
@@ -713,6 +720,48 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_createToPublicArray">
+        createToPublicArray()
+        <a href="classes/User.html#method_createToPublicArray" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/user.php"><a href="files/src-user.html"><abbr title="src/user.php">user.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">89</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Convert the User object to a public-safe associative array.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">createToPublicArray</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array{id: int|null, nickname: string, firstname: string, lastname: string, role: string}</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>This method is intended for API responses and frontend usage.
+It excludes sensitive data such as the user's password.</p>
+</section>
+
+    
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array{id: int|null, nickname: string, firstname: string, lastname: string, role: string}</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getFirstName">
         getFirstName()
         <a href="classes/User.html#method_getFirstName" class="headerlink"><i class="fas fa-link"></i></a>
@@ -721,7 +770,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/user.php"><a href="files/src-user.html"><abbr title="src/user.php">user.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">116</span>
+    <span class="phpdocumentor-element-found-in__line">139</span>
 
     </aside>
 
@@ -760,7 +809,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/user.php"><a href="files/src-user.html"><abbr title="src/user.php">user.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">98</span>
+    <span class="phpdocumentor-element-found-in__line">121</span>
 
     </aside>
 
@@ -799,7 +848,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/user.php"><a href="files/src-user.html"><abbr title="src/user.php">user.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">125</span>
+    <span class="phpdocumentor-element-found-in__line">148</span>
 
     </aside>
 
@@ -838,7 +887,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/user.php"><a href="files/src-user.html"><abbr title="src/user.php">user.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">107</span>
+    <span class="phpdocumentor-element-found-in__line">130</span>
 
     </aside>
 
@@ -877,7 +926,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/user.php"><a href="files/src-user.html"><abbr title="src/user.php">user.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">134</span>
+    <span class="phpdocumentor-element-found-in__line">157</span>
 
     </aside>
 
@@ -916,7 +965,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/user.php"><a href="files/src-user.html"><abbr title="src/user.php">user.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">142</span>
+    <span class="phpdocumentor-element-found-in__line">165</span>
 
     </aside>
 
@@ -955,7 +1004,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/user.php"><a href="files/src-user.html"><abbr title="src/user.php">user.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">167</span>
+    <span class="phpdocumentor-element-found-in__line">190</span>
 
     </aside>
 
@@ -1000,7 +1049,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/user.php"><a href="files/src-user.html"><abbr title="src/user.php">user.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">175</span>
+    <span class="phpdocumentor-element-found-in__line">198</span>
 
     </aside>
 
@@ -1045,7 +1094,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/user.php"><a href="files/src-user.html"><abbr title="src/user.php">user.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">159</span>
+    <span class="phpdocumentor-element-found-in__line">182</span>
 
     </aside>
 
@@ -1090,7 +1139,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/user.php"><a href="files/src-user.html"><abbr title="src/user.php">user.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">183</span>
+    <span class="phpdocumentor-element-found-in__line">206</span>
 
     </aside>
 
@@ -1135,7 +1184,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/user.php"><a href="files/src-user.html"><abbr title="src/user.php">user.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">150</span>
+    <span class="phpdocumentor-element-found-in__line">173</span>
 
     </aside>
 
@@ -1296,6 +1345,7 @@
                                             <li class=""><a href="classes/User.html#method___construct">__construct()</a></li>
                                             <li class=""><a href="classes/User.html#method_create">create()</a></li>
                                             <li class=""><a href="classes/User.html#method_createArray">createArray()</a></li>
+                                            <li class=""><a href="classes/User.html#method_createToPublicArray">createToPublicArray()</a></li>
                                             <li class=""><a href="classes/User.html#method_getFirstName">getFirstName()</a></li>
                                             <li class=""><a href="classes/User.html#method_getID">getID()</a></li>
                                             <li class=""><a href="classes/User.html#method_getLastname">getLastname()</a></li>

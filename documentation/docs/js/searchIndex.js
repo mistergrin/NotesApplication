@@ -1,111 +1,6 @@
 Search.appendIndex(
     [
                 {
-            "fqsen": "\\UsersDB",
-            "name": "UsersDB",
-            "summary": "Class\u0020UsersDB",
-            "url": "classes/UsersDB.html"
-        },                {
-            "fqsen": "\\UsersDB\u003A\u003AallUsers\u0028\u0029",
-            "name": "allUsers",
-            "summary": "Retrieve\u0020all\u0020users\u0020from\u0020storage.",
-            "url": "classes/UsersDB.html#method_allUsers"
-        },                {
-            "fqsen": "\\UsersDB\u003A\u003Aget_all_users_paginated\u0028\u0029",
-            "name": "get_all_users_paginated",
-            "summary": "Retrieve\u0020users\u0020with\u0020pagination\u0020and\u0020sorting.",
-            "url": "classes/UsersDB.html#method_get_all_users_paginated"
-        },                {
-            "fqsen": "\\UsersDB\u003A\u003AaddUser\u0028\u0029",
-            "name": "addUser",
-            "summary": "Add\u0020a\u0020new\u0020user\u0020to\u0020storage.",
-            "url": "classes/UsersDB.html#method_addUser"
-        },                {
-            "fqsen": "\\UsersDB\u003A\u003AgetUserByNickname\u0028\u0029",
-            "name": "getUserByNickname",
-            "summary": "Find\u0020a\u0020user\u0020by\u0020nickname.",
-            "url": "classes/UsersDB.html#method_getUserByNickname"
-        },                {
-            "fqsen": "\\UsersDB\u003A\u003AgetUserByID\u0028\u0029",
-            "name": "getUserByID",
-            "summary": "Find\u0020a\u0020user\u0020by\u0020ID.",
-            "url": "classes/UsersDB.html#method_getUserByID"
-        },                {
-            "fqsen": "\\UsersDB\u003A\u003AupdateUser\u0028\u0029",
-            "name": "updateUser",
-            "summary": "Update\u0020an\u0020existing\u0020user.",
-            "url": "classes/UsersDB.html#method_updateUser"
-        },                {
-            "fqsen": "\\UsersDB\u003A\u003AdeleteUser\u0028\u0029",
-            "name": "deleteUser",
-            "summary": "Delete\u0020a\u0020user\u0020by\u0020ID.",
-            "url": "classes/UsersDB.html#method_deleteUser"
-        },                {
-            "fqsen": "\\UsersDB\u003A\u003AupgradeUserRole\u0028\u0029",
-            "name": "upgradeUserRole",
-            "summary": "Upgrade\u0020a\u0020user\u0027s\u0020role\u0020to\u0020ADMIN.",
-            "url": "classes/UsersDB.html#method_upgradeUserRole"
-        },                {
-            "fqsen": "\\UsersDB\u003A\u003A\u0024file",
-            "name": "file",
-            "summary": "Path\u0020to\u0020the\u0020JSON\u0020file\u0020used\u0020as\u0020storage.",
-            "url": "classes/UsersDB.html#property_file"
-        },                {
-            "fqsen": "\\NotesDB",
-            "name": "NotesDB",
-            "summary": "Class\u0020NotesDB",
-            "url": "classes/NotesDB.html"
-        },                {
-            "fqsen": "\\NotesDB\u003A\u003AallNotes\u0028\u0029",
-            "name": "allNotes",
-            "summary": "Retrieve\u0020all\u0020notes\u0020from\u0020storage.",
-            "url": "classes/NotesDB.html#method_allNotes"
-        },                {
-            "fqsen": "\\NotesDB\u003A\u003AaddNote\u0028\u0029",
-            "name": "addNote",
-            "summary": "Add\u0020a\u0020new\u0020note\u0020to\u0020storage.",
-            "url": "classes/NotesDB.html#method_addNote"
-        },                {
-            "fqsen": "\\NotesDB\u003A\u003AgetNoteById\u0028\u0029",
-            "name": "getNoteById",
-            "summary": "Get\u0020a\u0020note\u0020by\u0020its\u0020ID.",
-            "url": "classes/NotesDB.html#method_getNoteById"
-        },                {
-            "fqsen": "\\NotesDB\u003A\u003AgetNotesByAuthorId\u0028\u0029",
-            "name": "getNotesByAuthorId",
-            "summary": "Get\u0020notes\u0020by\u0020author\u0020ID\u0020with\u0020pagination.",
-            "url": "classes/NotesDB.html#method_getNotesByAuthorId"
-        },                {
-            "fqsen": "\\NotesDB\u003A\u003AdeleteNote\u0028\u0029",
-            "name": "deleteNote",
-            "summary": "Delete\u0020a\u0020note\u0020by\u0020ID.",
-            "url": "classes/NotesDB.html#method_deleteNote"
-        },                {
-            "fqsen": "\\NotesDB\u003A\u003AdeleteNoteImage\u0028\u0029",
-            "name": "deleteNoteImage",
-            "summary": "Delete\u0020the\u0020image\u0020associated\u0020with\u0020a\u0020note.",
-            "url": "classes/NotesDB.html#method_deleteNoteImage"
-        },                {
-            "fqsen": "\\NotesDB\u003A\u003AupdateNote\u0028\u0029",
-            "name": "updateNote",
-            "summary": "Update\u0020an\u0020existing\u0020note.",
-            "url": "classes/NotesDB.html#method_updateNote"
-        },                {
-            "fqsen": "\\NotesDB\u003A\u003Adelete_notes_by_author_id\u0028\u0029",
-            "name": "delete_notes_by_author_id",
-            "summary": "Delete\u0020all\u0020notes\u0020by\u0020a\u0020specific\u0020author\u0020ID.",
-            "url": "classes/NotesDB.html#method_delete_notes_by_author_id"
-        },                {
-            "fqsen": "\\NotesDB\u003A\u003AdeleteAllImagesByAuthorId\u0028\u0029",
-            "name": "deleteAllImagesByAuthorId",
-            "summary": "Delete\u0020all\u0020images\u0020associated\u0020with\u0020notes\u0020of\u0020a\u0020specific\u0020author.",
-            "url": "classes/NotesDB.html#method_deleteAllImagesByAuthorId"
-        },                {
-            "fqsen": "\\NotesDB\u003A\u003A\u0024file",
-            "name": "file",
-            "summary": "Path\u0020to\u0020the\u0020JSON\u0020file\u0020where\u0020notes\u0020are\u0020stored.",
-            "url": "classes/NotesDB.html#property_file"
-        },                {
             "fqsen": "\\NoteController",
             "name": "NoteController",
             "summary": "Class\u0020NoteController",
@@ -355,6 +250,11 @@ Search.appendIndex(
             "name": "createArray",
             "summary": "Convert\u0020the\u0020User\u0020object\u0020to\u0020an\u0020associative\u0020array\u0020for\u0020storage.",
             "url": "classes/User.html#method_createArray"
+        },                {
+            "fqsen": "\\User\u003A\u003AcreateToPublicArray\u0028\u0029",
+            "name": "createToPublicArray",
+            "summary": "Convert\u0020the\u0020User\u0020object\u0020to\u0020a\u0020public\u002Dsafe\u0020associative\u0020array.",
+            "url": "classes/User.html#method_createToPublicArray"
         },                {
             "fqsen": "\\User\u003A\u003Acreate\u0028\u0029",
             "name": "create",
