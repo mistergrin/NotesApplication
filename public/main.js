@@ -1,3 +1,8 @@
+const params = new URLSearchParams(window.location.search);
+const pageFromUrl = parseInt(params.get('page')) || 1;
+
+
+
 function createCard(note) {
     const div = document.createElement("div");
     const dateDiv = document.createElement("div");
@@ -17,7 +22,6 @@ function createCard(note) {
 
     textDiv.className = "note-text";
     textDiv.textContent = shortText;
-    textDiv.style.whiteSpace = "pre-line";
     div.appendChild(textDiv);
 
     if (note.image) {
@@ -121,6 +125,9 @@ function createPaginationButton(text, page, currentPage, container, callback, to
 
 
 function loadNotes(page = 1){
+    const url = new URL(window.location);
+    url.searchParams.set('page', page);
+    window.history.replaceState({}, '', url);
     fetch(`/~hryshiva/site/public/api/api_get.php?action=get_notes_by_user&page=${page}`)
         .then(res => res.json())
         .then(data => {
@@ -184,7 +191,7 @@ function renderPagination(currentPage, totalPages, container) {
 
 
 document.addEventListener("DOMContentLoaded", ()=>
-loadNotes())
+loadNotes(pageFromUrl))
 
 document.addEventListener("click", function (e){
     if (e.target.classList.contains("read-more")){
@@ -196,7 +203,6 @@ document.addEventListener("click", function (e){
         const imgElement = card.querySelector(".note-img");
         const cardDate = card.querySelector(".note-date").textContent;
         textModal.textContent = card.dataset.fullText;
-        textModal.style.whiteSpace = "pre-line";
 
         modalImage.innerHTML = "";
         if (imgElement) {
@@ -209,14 +215,14 @@ document.addEventListener("click", function (e){
 
         date.textContent = cardDate;
         modal.dataset.id = e.target.dataset.id;
-        modal.style.display = "flex";
+        modal.classList.add("is-open");
     }
 })
 
 document.addEventListener("click", function (e){
     const modal = document.querySelector("#modal");
     if (e.target.classList.contains("modal-close") || e.target === modal) {
-        modal.style.display = "none";
+        modal.classList.remove("is-open");
         document.querySelector("#modal-edit-block").classList.add("hidden");
     }
 })
@@ -241,7 +247,7 @@ document.addEventListener("click", function(e){
 
                     loadNotes();
                     card.remove();
-                    modal.style.display = "none";
+                    modal.classList.remove("is-open");
                 }
             })
             .catch(err => {
@@ -291,10 +297,8 @@ document.querySelector(".modal-edit-form").addEventListener("submit", function (
             if (data.success) {
                 card.dataset.fullText = newText;
                 textElement.textContent = newText.length > 150 ? newText.substring(0, 150) + "..." : newText;
-                textElement.style.whiteSpace = "pre-line";
 
                 modalText.textContent = newText;
-                modalText.style.whiteSpace = "pre-line";
 
                 const formattedDate = `Last edited at: ${data.updated_at}`;
                 dateDiv.textContent = formattedDate;

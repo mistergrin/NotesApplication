@@ -422,6 +422,14 @@ footer {
     display: none;
 }
 
+#modal {
+    display: none;
+}
+
+#modal.is-open {
+    display: flex;
+}
+
 .modal-edit-text {
     width: 100%;
     max-width: 100%;

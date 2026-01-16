@@ -1,10 +1,16 @@
+const params = new URLSearchParams(window.location.search);
+const pageFromUrl = parseInt(params.get('page')) || 1;
+
 document.addEventListener("DOMContentLoaded", function (){
-    loadUsers();
+    loadUsers(pageFromUrl);
 })
 
 function loadUsers(page = 1) {
-    const tbody = document.getElementById('users-table');
+    const url = new URL(window.location);
+    url.searchParams.set('page', page);
+    window.history.replaceState({}, '', url);
 
+    const tbody = document.getElementById('users-table');
     fetch(`/~hryshiva/site/public/api/api_get.php?action=get_all_users&page=${page}`)
         .then(res => res.json())
         .then(data => {

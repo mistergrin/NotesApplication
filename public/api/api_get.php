@@ -47,7 +47,7 @@ switch ($action) {
         $response['success'] = true;
         $data = $user_controller->get_all_users($page);
         $response['users'] = array_map(function($user){
-            return $user->createArray();
+            return $user->createToPublicArray();
         }, $data['users']);
 
         $response['total'] = $data['total'];

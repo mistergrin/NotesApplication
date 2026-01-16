@@ -71,6 +71,29 @@ class User
             'password' => $this->password,
             'role' => $this->role];
     }
+
+    /**
+     * Convert the User object to a public-safe associative array.
+     *
+     * This method is intended for API responses and frontend usage.
+     * It excludes sensitive data such as the user's password.
+     *
+     * @return array{
+     *     id: int|null,
+     *     nickname: string,
+     *     firstname: string,
+     *     lastname: string,
+     *     role: string
+     * }
+     */
+    public function createToPublicArray(){
+        return [
+        'id' => $this->id,
+        'nickname' => $this->nickname,
+        'firstname' => $this->firstName,
+        'lastname' => $this->lastName,
+        'role' => $this->role,];
+    }
     /**
      * Factory method to create a new User from POST data.
      *
